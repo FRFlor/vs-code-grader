@@ -38,7 +38,7 @@ int UTCtoLocal(int UTCtime, int UTCvalue)
 \treturn hour * 100 + minute;
 }`;
 
-@Module({dynamic: true, name: "app", store})
+@Module({dynamic: true, name: "tabs", store})
 class TabsModuleCore extends VuexModule implements ITabsModule {
     public tabs: ITab[] = [
         {
