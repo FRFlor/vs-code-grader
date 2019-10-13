@@ -16,16 +16,17 @@
             <v-button>
                 <vue-svg name="newFile" class="fill-light-blue"/>
             </v-button>
-            <v-button @click="openLoadFileDialog"
-                      :class="app.isBusy ? 'fill-light-gray' : 'fill-folder-yellow'"
+            <v-button @click="$emit('load-file')"
+                      class="fill-folder-yellow"
+                      :class="{'disabled': app.isBusy}"
                       v-tooltip="tooltipContent('Open File (\'Ctrl + O\')')">
                 <vue-svg name="open"/>
             </v-button>
             <v-button>
                 <vue-svg name="save" class="fill-light-blue"/>
             </v-button>
-            <v-button>
-                <vue-svg name="saveAs" class="fill-light-blue" @click="openSaveFileDialog"/>
+            <v-button @click="$emit('save-file')">
+                <vue-svg name="saveAs" class="fill-light-blue" :class="{'disabled': app.isBusy}"/>
             </v-button>
             <v-button>
                 <vue-svg name="print" class="fill-light-blue"/>
@@ -60,46 +61,22 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import VButton from "@/components/VButton.vue";
-    import VueSvg from "@/components/VueSvg.vue";
-    import {ipcRenderer, IpcRendererEvent} from "electron";
-    import {AppModule} from "@/store/modules/AppModule";
+import {Component, Vue} from "vue-property-decorator";
+import VButton from "@/components/VButton.vue";
+import VueSvg from "@/components/VueSvg.vue";
+import {AppModule} from "@/store/modules/AppModule";
 
 
-    @Component({
-        components: {VueSvg, VButton},
-    })
-    export default class TopNav extends Vue {
-        private app = AppModule;
+@Component({
+    components: {VueSvg, VButton},
+})
+export default class TopNav extends Vue {
+    private app = AppModule;
 
-        private created() {
-            ipcRenderer.on('file-loaded', (event: IpcRendererEvent,  fileLoaded: string) => {
-                this.app.changeBusyTo(false);
-                alert(`Add new tab for: ${fileLoaded}`);
-            });
-
-            ipcRenderer.on('shortcut-open-file', async (event: IpcRendererEvent,  fileLoaded: string) => {
-               await this.openLoadFileDialog();
-            });
-        }
-
-        private async openLoadFileDialog() {
-            if (this.app.isBusy) {
-                return;
-            }
-            this.app.changeBusyTo(true);
-            ipcRenderer.send('open-file');
-        }
-
-        private async openSaveFileDialog() {
-            ipcRenderer.send('save-file');
-        }
-
-        private tooltipContent(content: string) {
-            return {content, delay: {show: 500, hide: 100}}
-        }
+    private tooltipContent(content: string) {
+        return {content, delay: {show: 500, hide: 100}};
     }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -115,8 +92,8 @@
         color: $vs_white;
     }
 
-    img {
-        fill: red !important;
-        stroke: red;
+    .disabled {
+        fill: $vs_light_gray !important;
     }
+
 </style>

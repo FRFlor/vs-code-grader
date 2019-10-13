@@ -65,12 +65,7 @@ app.on("activate", () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
     globalShortcut.register("CommandOrControl+O", () => {
-        console.log('ACTION!');
         sendEvent("shortcut-open-file");
-    });
-
-    globalShortcut.register("CommandOrControl+X", () => {
-        console.log("CommandOrControl+X is pressed");
     });
 
     globalShortcut.register("CommandOrControl+-", () => {
@@ -117,8 +112,9 @@ if (isDevelopment) {
     }
 }
 
+const fileFilter = {name: "visual studio grade", extensions: ["vsgrade"]};
+
 ipcMain.on("open-file", async (event: IpcMainEvent) => {
-    const fileFilter = {name: "visual studio grade", extensions: ["vsgrade"]};
     const filePaths: string[] | undefined = dialog.showOpenDialogSync({
         filters: [fileFilter],
         properties: ["openFile"],
@@ -131,4 +127,6 @@ ipcMain.on("open-file", async (event: IpcMainEvent) => {
 });
 
 ipcMain.on("save-file", async (event: IpcMainEvent) => {
+    dialog.showSaveDialogSync({filters: [fileFilter]});
+    event.sender.send("file-saved");
 });
