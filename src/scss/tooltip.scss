@@ -7,7 +7,8 @@
 
   .tooltip-inner {
     background: $vs_white;
-    color: $vs_black;
+    color: $vs_gray;
+    border: 1px solid $vs_gray;
     padding: 5px 10px 4px;
   }
 

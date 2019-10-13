@@ -16,10 +16,9 @@
             <v-button>
                 <vue-svg name="newFile" class="fill-light-blue"/>
             </v-button>
-            <v-button>
-                <vue-svg name="caret" class="fill-light-gray"/>
-            </v-button>
-            <v-button @click="openLoadFileDialog" :class="app.isBusy ? 'fill-light-gray' : 'fill-folder-yellow'">
+            <v-button @click="openLoadFileDialog"
+                      :class="app.isBusy ? 'fill-light-gray' : 'fill-folder-yellow'"
+                      v-tooltip="tooltipContent('Open File (\'Ctrl + O\')')">
                 <vue-svg name="open"/>
             </v-button>
             <v-button>
@@ -27,6 +26,9 @@
             </v-button>
             <v-button>
                 <vue-svg name="saveAs" class="fill-light-blue" @click="openSaveFileDialog"/>
+            </v-button>
+            <v-button>
+                <vue-svg name="print" class="fill-light-blue"/>
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
@@ -76,9 +78,16 @@
                 this.app.changeBusyTo(false);
                 alert(`Add new tab for: ${fileLoaded}`);
             });
+
+            ipcRenderer.on('shortcut-open-file', async (event: IpcRendererEvent,  fileLoaded: string) => {
+               await this.openLoadFileDialog();
+            });
         }
 
         private async openLoadFileDialog() {
+            if (this.app.isBusy) {
+                return;
+            }
             this.app.changeBusyTo(true);
             ipcRenderer.send('open-file');
         }

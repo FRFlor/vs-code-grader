@@ -1,6 +1,6 @@
 "use strict";
 
-import {app, BrowserWindow, dialog, ipcMain, IpcMainEvent, protocol} from "electron";
+import {app, BrowserWindow, dialog, globalShortcut, ipcMain, IpcMainEvent, protocol} from "electron";
 import {createProtocol, installVueDevtools} from "vue-cli-plugin-electron-builder/lib";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -11,6 +11,12 @@ let win: BrowserWindow | null;
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([{scheme: "app", privileges: {secure: true, standard: true}}]);
+const sendEvent = (channel: string, ...args: any[]) => {
+    if (win === null) {
+        return;
+    }
+    win.webContents.send(channel, args);
+};
 
 function createWindow() {
     // Create the browser window.
@@ -58,6 +64,27 @@ app.on("activate", () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
+    globalShortcut.register("CommandOrControl+O", () => {
+        console.log('ACTION!');
+        sendEvent("shortcut-open-file");
+    });
+
+    globalShortcut.register("CommandOrControl+X", () => {
+        console.log("CommandOrControl+X is pressed");
+    });
+
+    globalShortcut.register("CommandOrControl+-", () => {
+        console.log("CommandOrControl+- is pressed");
+    });
+
+    globalShortcut.register("CommandOrControl+Shift+-", () => {
+        console.log("CommandOrControl++ is pressed");
+    });
+
+    globalShortcut.register("CommandOrControl+Shift+=", () => {
+        console.log("CommandOrControl++ is pressed");
+    });
+
     if (isDevelopment && !process.env.IS_TEST) {
         // Install Vue Devtools
         // Devtools extensions are broken in Electron 6.0.0 and greater
