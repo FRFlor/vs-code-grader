@@ -3,6 +3,7 @@
         <top-nav @load-file="openLoadFileDialog"
                  @save-file="openSaveFileDialog"/>
         <code-viewer/>
+        <bottom-bar/>
     </div>
 </template>
 
@@ -13,9 +14,11 @@
     import {AppModule} from "@/store/modules/AppModule";
     import MouseTrap from "mousetrap";
     import CodeViewer from "@/components/CodeViewer.vue";
+    import BottomBar from "@/components/BottomBar.vue";
 
     @Component({
         components: {
+            BottomBar,
             CodeViewer,
             TopNav,
         },

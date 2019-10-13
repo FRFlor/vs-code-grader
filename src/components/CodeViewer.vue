@@ -8,7 +8,6 @@
         </div>
         <vue-code-highlight language="JavaScript" class="code-highlight">
             {{code}}
-            {{code}}
         </vue-code-highlight>
     </div>
 
@@ -23,7 +22,7 @@
         private isLineCommented: boolean[] = [];
 
         created() {
-            this.isLineCommented = Array.from({length: 92}, () => false);
+            this.isLineCommented = Array.from({length: 100}, () => false);
         }
 
         onHighlightClicked(index: number) {
@@ -71,20 +70,17 @@ int UTCtoLocal(int UTCtime, int UTCvalue)
     @import "~vue-code-highlight/themes/prism-okaidia.css";
     @import "../scss/app";
 
-    * {
-        font-size: 8px !important;
-    }
-
     .code-viewer {
         margin-top: -4px;
         display: flex;
         overflow-y: auto;
         width: 460px;
-        height: 530px;
+        height: calc(100vh - 45px);
     }
 
     .code-highlight {
         width: 450px;
+        font-size: 8px;
     }
 
     .highlight-wrapper {
