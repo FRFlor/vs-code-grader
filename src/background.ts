@@ -27,11 +27,6 @@ function createWindow() {
             nodeIntegration: true,
         },
     });
-    win.setTitle("Visual Studio Grade");
-    win.on("page-title-updated", function(e) {
-        e.preventDefault();
-    });
-
 
     const webContents = win.webContents;
     webContents.on("did-finish-load", () => {
@@ -111,7 +106,7 @@ if (isDevelopment) {
     }
 }
 
-const fileFilter = {name: "visual studio grade", extensions: ["vsgrade"]};
+const fileFilter = {name: "VS Grader Document", extensions: ["vsgrade"]};
 
 ipcMain.on("open-file", async (event: IpcMainEvent) => {
     const filePaths: string[] | undefined = dialog.showOpenDialogSync({
