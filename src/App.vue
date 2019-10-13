@@ -2,6 +2,7 @@
     <div id="app" v-show="!isHidden">
         <top-nav @load-file="openLoadFileDialog"
                  @save-file="openSaveFileDialog"/>
+        <code-viewer/>
     </div>
 </template>
 
@@ -11,9 +12,11 @@
     import {ipcRenderer, IpcRendererEvent} from "electron";
     import {AppModule} from "@/store/modules/AppModule";
     import MouseTrap from "mousetrap";
+    import CodeViewer from "@/components/CodeViewer.vue";
 
     @Component({
         components: {
+            CodeViewer,
             TopNav,
         },
     })
