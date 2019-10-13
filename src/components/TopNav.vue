@@ -1,6 +1,6 @@
 <template>
-    <nav class="flex">
-        <div class="switch-tabs flex">
+    <nav class="flex align-center">
+        <div class="switch-tabs flex h-100">
             <v-button v-tooltip="tooltipContent('Navigate to previous tab (\'Ctrl + -\')')">
                 <vue-svg name="arrowLeft" class="fill-light-blue"/>
             </v-button>
@@ -12,7 +12,7 @@
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
-        <div class="file-options flex">
+        <div class="file-options flex h-100">
             <v-button>
                 <vue-svg name="newFile" class="fill-light-blue"/>
             </v-button>
@@ -33,7 +33,7 @@
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
-        <div class="history flex">
+        <div class="history flex h-100">
             <v-button>
                 <vue-svg name="back" class="fill-light-blue"/>
             </v-button>
@@ -48,7 +48,7 @@
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
-        <div class="run flex">
+        <div class="run flex h-100">
             <v-button class="play-button">
                 <div class="flex align-center">
                     <vue-svg name="play" class="fill-light-blue"/>
