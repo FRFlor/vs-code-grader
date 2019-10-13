@@ -17,9 +17,9 @@
                 <vue-svg name="newFile" class="fill-light-blue"/>
             </v-button>
             <v-button @click="$emit('load-file')"
+                      v-tooltip="tooltipContent('Open File (\'Ctrl + O\')')"
                       class="fill-folder-yellow"
-                      :class="{'disabled': app.isBusy}"
-                      v-tooltip="tooltipContent('Open File (\'Ctrl + O\')')">
+                      :class="{'disabled': app.isBusy}">
                 <vue-svg name="open"/>
             </v-button>
             <v-button>

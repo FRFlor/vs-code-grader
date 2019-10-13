@@ -1,6 +1,6 @@
 "use strict";
 
-import {app, BrowserWindow, dialog, globalShortcut, ipcMain, IpcMainEvent, protocol} from "electron";
+import {app, BrowserWindow, dialog, ipcMain, IpcMainEvent, protocol} from "electron";
 import {createProtocol, installVueDevtools} from "vue-cli-plugin-electron-builder/lib";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -24,6 +24,14 @@ function createWindow() {
         width: 800, height: 600, webPreferences: {
             nodeIntegration: true,
         },
+    });
+
+    const webContents = win.webContents;
+    webContents.on("did-finish-load", () => {
+        webContents.setZoomFactor(1);
+        webContents.setVisualZoomLevelLimits(1, 1);
+        webContents.setLayoutZoomLevelLimits(0, 0);
+        sendEvent("zoom-removed");
     });
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -64,22 +72,6 @@ app.on("activate", () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
-    globalShortcut.register("CommandOrControl+O", () => {
-        sendEvent("shortcut-open-file");
-    });
-
-    globalShortcut.register("CommandOrControl+-", () => {
-        console.log("CommandOrControl+- is pressed");
-    });
-
-    globalShortcut.register("CommandOrControl+Shift+-", () => {
-        console.log("CommandOrControl++ is pressed");
-    });
-
-    globalShortcut.register("CommandOrControl+Shift+=", () => {
-        console.log("CommandOrControl++ is pressed");
-    });
-
     if (isDevelopment && !process.env.IS_TEST) {
         // Install Vue Devtools
         // Devtools extensions are broken in Electron 6.0.0 and greater

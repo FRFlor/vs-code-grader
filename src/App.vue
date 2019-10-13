@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-show="!isHidden">
         <top-nav @load-file="openLoadFileDialog"
                  @save-file="openSaveFileDialog"/>
     </div>
@@ -10,6 +10,7 @@
     import TopNav from "./components/TopNav.vue";
     import {ipcRenderer, IpcRendererEvent} from "electron";
     import {AppModule} from "@/store/modules/AppModule";
+    import MouseTrap from "mousetrap";
 
     @Component({
         components: {
@@ -18,8 +19,11 @@
     })
     export default class App extends Vue {
         private app = AppModule;
+        private isHidden: boolean = true;
 
         private created() {
+            ipcRenderer.on("zoom-removed", () => this.isHidden = false);
+
             ipcRenderer.on("file-loaded", (event: IpcRendererEvent, fileLoaded: string) => {
                 this.app.changeBusyTo(false);
                 alert(`Add new tab for: ${fileLoaded}`);
@@ -28,9 +32,7 @@
                 this.app.changeBusyTo(false);
             });
 
-            ipcRenderer.on("shortcut-open-file", () => {
-                this.openLoadFileDialog();
-            });
+            MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());
         }
 
         private checkForBusy(): boolean {
@@ -69,9 +71,6 @@
         overflow: hidden;
         height: 100vh;
         width: 100vw;
-    }
-
-    #app {
-
+        background: $vs_black;
     }
 </style>
