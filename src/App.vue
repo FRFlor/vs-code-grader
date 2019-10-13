@@ -1,29 +1,31 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <top-nav/>
-  </div>
+    <div id="app">
+        <top-nav/>
+    </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import TopNav from "./components/TopNav.vue";
+    import {Component, Vue} from "vue-property-decorator";
+    import TopNav from "./components/TopNav.vue";
 
-@Component({
-  components: {
-    TopNav,
-  },
-})
-export default class App extends Vue {}
+    @Component({
+        components: {
+            TopNav,
+        },
+    })
+    export default class App extends Vue {
+    }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    html, body {
+        margin: 0;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    #app {
+
+    }
 </style>
