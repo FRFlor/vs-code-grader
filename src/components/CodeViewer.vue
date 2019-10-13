@@ -28,8 +28,16 @@
         private startLineSelected: number = -1;
         private endLineSelected: number = -1;
 
+        private get codeBox(): HTMLDivElement {
+            return document.getElementById('code-box') as HTMLDivElement;
+        }
+
+        private get gutter(): HTMLDivElement {
+            return document.getElementById('highlights') as HTMLDivElement;
+        }
+
         private get topYOfCodeBox() : number {
-            return (document.getElementById('code-box') as HTMLDivElement).offsetTop;
+            return  this.codeBox.offsetTop;
         }
 
         onHighlightClicked(index: number) {
@@ -37,20 +45,21 @@
         }
 
         private onMouseDown(e: MouseEvent) {
-            this.startLineSelected = Math.floor((e.clientY - this.topYOfCodeBox)/8.5);
+            this.startLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox)/8.5);
         }
 
-        private onMouseUp(e: any) {
-            this.endLineSelected = Math.floor((e.clientY - this.topYOfCodeBox)/8.5);
+        private onMouseUp(e: MouseEvent) {
+            this.endLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox)/8.5);
             if (this.startLineSelected === -1 || this.endLineSelected === -1) {
                 return;
             }
-            this.tabs.highlightLines({start: this.startLineSelected, end: this.endLineSelected});
+            const start: number = Math.min(this.startLineSelected, this.endLineSelected);
+            const end: number = Math.max(this.startLineSelected, this.endLineSelected);
+            this.tabs.highlightLines({start, end});
         }
 
         private onscroll(e: MouseEvent) {
-            const gutter = document.getElementById("highlights") as HTMLDivElement;
-            gutter.scrollTop = (e.target as HTMLDivElement).scrollTop;
+            this.gutter.scrollTop = (e.target as HTMLDivElement).scrollTop;
         }
     }
 
