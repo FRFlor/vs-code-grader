@@ -19,7 +19,7 @@
             <v-button>
                 <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
-            <v-button>
+            <v-button @click="openFileDialog">
                 <vue-svg name="open"/>
             </v-button>
             <v-button>
@@ -58,15 +58,26 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import VButton from "@/components/VButton.vue";
-import VueSvg from "@/components/VueSvg.vue";
+    import {Component, Vue} from "vue-property-decorator";
+    import VButton from "@/components/VButton.vue";
+    import VueSvg from "@/components/VueSvg.vue";
+    import {ipcRenderer, IpcRendererEvent} from "electron";
 
-@Component({
-    components: {VueSvg, VButton},
-})
-export default class TopNav extends Vue {
-}
+
+    @Component({
+        components: {VueSvg, VButton},
+    })
+    export default class TopNav extends Vue {
+        private created() {
+            ipcRenderer.on('file-loaded', (event: IpcRendererEvent,  fileLoaded: string) => {
+                alert(`Add new tab for: ${fileLoaded}`);
+            });
+        }
+
+        private async openFileDialog() {
+            ipcRenderer.send('open-file');
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
