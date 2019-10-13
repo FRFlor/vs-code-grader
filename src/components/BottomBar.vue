@@ -19,7 +19,7 @@
 
     .bottom-bar {
         height: 20px;
-        margin-top: -5px;
+        margin-top: -3px;
         background-color: $vs_dark_gray;
         position: relative;
         z-index: 2;

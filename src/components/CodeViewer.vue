@@ -6,13 +6,13 @@
                  @click="onHighlightClicked(index)"
                  :class="{'pink': isCommented}"></div>
         </div>
-        <div v-highlight class="code-highlight" id="code-box">
-            <pre class="language-javascript" @scroll="onscroll" @mousedown="onMouseDown" @mouseup="onMouseUp">
+        <div v-highlight id="code-box">
+            <pre class="language-javascript"
+                 @scroll="onscroll" @mousedown="onMouseDown" @mouseup="onMouseUp">
               <code>
                         {{tabs.currentCodeSelected}}
               </code>
             </pre>
-            <div class="code-highlight-empty-space"></div>
         </div>
     </div>
 
@@ -68,29 +68,30 @@
 <style scoped lang="scss">
     @import "~vue-code-highlight/themes/prism-okaidia.css";
     @import "../scss/app";
+    $gutter-width: 12px;
+    $code-box-width: 450px;
+    $code-box-height: calc(100vh - 67px);
+
 
     .code-viewer {
         margin-top: -4px;
         display: flex;
-        width: 460px;
-        height: calc(100vh - 65px);
+        width: $gutter-width + $code-box-width;
+        height: $code-box-height;
     }
 
-    .code-highlight-empty-space {
-        display: flex;
-        flex: 1;
-        background-color: #272822;
-        margin-top: -5px;
-    }
-
-    .code-highlight {
+    #code-box {
         display: flex;
         flex-direction: column;
-        font-size: 8px;
+        font-size: 10px;
+        width: $code-box-width;
+        pre {
+            height: $code-box-height;
+        }
     }
 
     .highlight-wrapper {
-        width: 10px;
+        width: $gutter-width;
         margin-top: 4px;
         overflow-y: scroll;
 
@@ -110,18 +111,5 @@
                 background-color: pink;
             }
         }
-    }
-
-
-    .comment {
-        color: forestgreen;
-    }
-
-    .tab {
-        padding-left: 10px;
-    }
-
-    .tab-2 {
-        padding-left: 20px;
     }
 </style>
