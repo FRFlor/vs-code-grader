@@ -6,8 +6,8 @@
                  @click="onHighlightClicked(index)"
                  :class="{'pink': isCommented}"></div>
         </div>
-        <div v-highlight class="code-highlight">
-            <pre class="language-javascript" @scroll="onscroll">
+        <div v-highlight class="code-highlight" id="code-box">
+            <pre class="language-javascript" @scroll="onscroll" @mousedown="onMouseDown" @mouseup="onMouseUp">
               <code>
                         {{tabs.currentCodeSelected}}
               </code>
@@ -25,10 +25,27 @@
     @Component
     export default class CodeViewer extends Vue {
         private tabs = TabsModule;
+        private startLineSelected: number = -1;
+        private endLineSelected: number = -1;
+
+        private get topYOfCodeBox() : number {
+            return (document.getElementById('code-box') as HTMLDivElement).offsetTop;
+        }
 
         onHighlightClicked(index: number) {
             console.log("clicked on " + index);
-            this.tabs.highlightLines(index);
+        }
+
+        private onMouseDown(e: MouseEvent) {
+            this.startLineSelected = Math.floor((e.clientY - this.topYOfCodeBox)/8.5);
+        }
+
+        private onMouseUp(e: any) {
+            this.endLineSelected = Math.floor((e.clientY - this.topYOfCodeBox)/8.5);
+            if (this.startLineSelected === -1 || this.endLineSelected === -1) {
+                return;
+            }
+            this.tabs.highlightLines({start: this.startLineSelected, end: this.endLineSelected});
         }
 
         private onscroll(e: MouseEvent) {

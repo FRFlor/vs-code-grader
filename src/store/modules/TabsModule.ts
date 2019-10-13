@@ -69,10 +69,14 @@ class TabsModuleCore extends VuexModule implements ITabsModule {
     }
 
     @Action
-    public highlightLines(lineIndex: number) {
-        this.tabs[this.currentTabIndex].highlightedLines[lineIndex] =
-            !this.tabs[this.currentTabIndex].highlightedLines[lineIndex];
-
+    public highlightLines({start, end} : {start: number, end: number}) {
+        console.log({start}, {end});
+        for (let lineIndex = start; lineIndex <= end; lineIndex++) {
+            console.log('checking', lineIndex);
+            this.tabs[this.currentTabIndex].highlightedLines[lineIndex] =
+                !this.tabs[this.currentTabIndex].highlightedLines[lineIndex];
+        }
+        console.log(this.tabs);
         this.context.commit("SET_TABS", [...this.tabs]);
     }
 
