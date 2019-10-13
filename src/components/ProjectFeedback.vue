@@ -18,40 +18,40 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import InputBox from "@/components/InputBox.vue";
-    import {AppModule} from "@/store/modules/AppModule";
+import {Component, Vue} from "vue-property-decorator";
+import InputBox from "@/components/InputBox.vue";
+import {AppModule} from "@/store/modules/AppModule";
 
-    @Component({
-        components: {InputBox}
-    })
-    export default class ProjectFeedback extends Vue {
-        private app = AppModule;
-        private newStudent: string = "";
+@Component({
+    components: {InputBox},
+})
+export default class ProjectFeedback extends Vue {
+    private app = AppModule;
+    private newStudent: string = "";
 
-        private updateStudent(id: number, name: string) {
-            this.app.editStudent({id, name});
-        }
-
-        private goToNext(index: number) {
-            const target = (index === this.app.students.length - 1)
-                ? "new-student" : `student-${index + 1}`;
-
-            this.getInput(target).focus();
-        }
-
-        private addNewStudent() {
-            this.app.addStudent(this.newStudent);
-            this.newStudent = "";
-            this.$nextTick(() => {
-                this.getInput(`student-${this.app.students.length - 1}`).focus();
-            });
-        }
-
-        private getInput(id: string): HTMLInputElement {
-            return document.getElementById(id) as HTMLInputElement;
-        }
+    private updateStudent(id: number, name: string) {
+        this.app.editStudent({id, name});
     }
+
+    private goToNext(index: number) {
+        const target = (index === this.app.students.length - 1)
+            ? "new-student" : `student-${index + 1}`;
+
+        this.getInput(target).focus();
+    }
+
+    private addNewStudent() {
+        this.app.addStudent(this.newStudent);
+        this.newStudent = "";
+        this.$nextTick(() => {
+            this.getInput(`student-${this.app.students.length - 1}`).focus();
+        });
+    }
+
+    private getInput(id: string): HTMLInputElement {
+        return document.getElementById(id) as HTMLInputElement;
+    }
+}
 </script>
 
 <style lang="scss" scoped>

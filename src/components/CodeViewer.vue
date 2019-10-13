@@ -19,50 +19,49 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import {TabsModule} from "@/store/modules/TabsModule";
+import {Component, Vue} from "vue-property-decorator";
+import {TabsModule} from "@/store/modules/TabsModule";
 
-    @Component
-    export default class CodeViewer extends Vue {
-        private tabs = TabsModule;
-        private startLineSelected: number = -1;
-        private endLineSelected: number = -1;
+@Component
+export default class CodeViewer extends Vue {
+    private tabs = TabsModule;
+    private startLineSelected: number = -1;
+    private endLineSelected: number = -1;
 
-        private get codeBox(): HTMLDivElement {
-            return document.getElementById('code-box') as HTMLDivElement;
-        }
-
-        private get gutter(): HTMLDivElement {
-            return document.getElementById('highlights') as HTMLDivElement;
-        }
-
-        private get topYOfCodeBox() : number {
-            return  this.codeBox.offsetTop;
-        }
-
-        onHighlightClicked(index: number) {
-            console.log("clicked on " + index);
-        }
-
-        private onMouseDown(e: MouseEvent) {
-            this.startLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox)/8.5);
-        }
-
-        private onMouseUp(e: MouseEvent) {
-            this.endLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox)/8.5);
-            if (this.startLineSelected === -1 || this.endLineSelected === -1) {
-                return;
-            }
-            const start: number = Math.min(this.startLineSelected, this.endLineSelected);
-            const end: number = Math.max(this.startLineSelected, this.endLineSelected);
-            this.tabs.highlightLines({start, end});
-        }
-
-        private onscroll(e: MouseEvent) {
-            this.gutter.scrollTop = (e.target as HTMLDivElement).scrollTop;
-        }
+    private get codeBox(): HTMLDivElement {
+        return document.getElementById("code-box") as HTMLDivElement;
     }
 
+    private get gutter(): HTMLDivElement {
+        return document.getElementById("highlights") as HTMLDivElement;
+    }
+
+    private get topYOfCodeBox(): number {
+        return  this.codeBox.offsetTop;
+    }
+
+    public onHighlightClicked(index: number) {
+        console.log("clicked on " + index);
+    }
+
+    private onMouseDown(e: MouseEvent) {
+        this.startLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 8.5);
+    }
+
+    private onMouseUp(e: MouseEvent) {
+        this.endLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 8.5);
+        if (this.startLineSelected === -1 || this.endLineSelected === -1) {
+            return;
+        }
+        const start: number = Math.min(this.startLineSelected, this.endLineSelected);
+        const end: number = Math.max(this.startLineSelected, this.endLineSelected);
+        this.tabs.highlightLines({start, end});
+    }
+
+    private onscroll(e: MouseEvent) {
+        this.gutter.scrollTop = (e.target as HTMLDivElement).scrollTop;
+    }
+}
 </script>
 
 <style scoped lang="scss">
