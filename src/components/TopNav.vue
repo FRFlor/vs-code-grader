@@ -1,7 +1,7 @@
 <template>
     <nav class="flex">
         <div class="switch-tabs flex">
-            <v-button>
+            <v-button v-tooltip="tooltipContent('Navigate to previous tab (\'Ctrl + -\')')">
                 <vue-svg name="arrowLeft" class="fill-light-blue"/>
             </v-button>
             <v-button>
@@ -86,11 +86,15 @@
         private async openSaveFileDialog() {
             ipcRenderer.send('save-file');
         }
+
+        private tooltipContent(content: string) {
+            return {content, delay: {show: 500, hide: 100}}
+        }
     }
 </script>
 
 <style lang="scss" scoped>
-    @import "../app";
+    @import "../scss/app";
 
     nav {
         background-color: $vs_dark_gray;

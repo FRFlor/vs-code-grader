@@ -42,7 +42,7 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "../app";
+    @import "../scss/app";
 
     img {
         pointer-events: none;

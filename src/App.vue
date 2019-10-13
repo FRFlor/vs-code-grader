@@ -18,6 +18,8 @@
 </script>
 
 <style lang="scss">
+    @import "./scss/app";
+    @import "./scss/tooltip";
     html, body {
         margin: 0;
         overflow: hidden;
