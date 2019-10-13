@@ -21,10 +21,17 @@ const sendEvent = (channel: string, ...args: any[]) => {
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800, height: 600, webPreferences: {
+        width: 800,
+        height: 600,
+        webPreferences: {
             nodeIntegration: true,
         },
     });
+    win.setTitle("Visual Studio Grade");
+    win.on("page-title-updated", function(e) {
+        e.preventDefault();
+    });
+
 
     const webContents = win.webContents;
     webContents.on("did-finish-load", () => {
