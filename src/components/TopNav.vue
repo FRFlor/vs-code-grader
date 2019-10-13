@@ -19,14 +19,14 @@
             <v-button>
                 <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
-            <v-button @click="openFileDialog">
+            <v-button @click="openLoadFileDialog" :class="app.isBusy ? 'fill-light-gray' : 'fill-folder-yellow'">
                 <vue-svg name="open"/>
             </v-button>
             <v-button>
                 <vue-svg name="save" class="fill-light-blue"/>
             </v-button>
             <v-button>
-                <vue-svg name="saveAs" class="fill-light-blue"/>
+                <vue-svg name="saveAs" class="fill-light-blue" @click="openSaveFileDialog"/>
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
@@ -62,20 +62,29 @@
     import VButton from "@/components/VButton.vue";
     import VueSvg from "@/components/VueSvg.vue";
     import {ipcRenderer, IpcRendererEvent} from "electron";
+    import {AppModule} from "@/store/modules/AppModule";
 
 
     @Component({
         components: {VueSvg, VButton},
     })
     export default class TopNav extends Vue {
+        private app = AppModule;
+
         private created() {
             ipcRenderer.on('file-loaded', (event: IpcRendererEvent,  fileLoaded: string) => {
+                this.app.changeBusyTo(false);
                 alert(`Add new tab for: ${fileLoaded}`);
             });
         }
 
-        private async openFileDialog() {
+        private async openLoadFileDialog() {
+            this.app.changeBusyTo(true);
             ipcRenderer.send('open-file');
+        }
+
+        private async openSaveFileDialog() {
+            ipcRenderer.send('save-file');
         }
     }
 </script>

@@ -91,11 +91,17 @@ if (isDevelopment) {
 }
 
 ipcMain.on("open-file", async (event: IpcMainEvent) => {
-    await dialog.showOpenDialog({properties: ["openFile", "openDirectory", "multiSelections"]},
-        (fileNames?: string[]) => {
-            if (fileNames === undefined) {
-                return;
-            }
-            event.sender.send("file-loaded", fileNames[0] || "");
-        });
+    const fileFilter = {name: "visual studio grade", extensions: ["vsgrade"]};
+    const filePaths: string[] | undefined = dialog.showOpenDialogSync({
+        filters: [fileFilter],
+        properties: ["openFile"],
+    });
+    if (filePaths === undefined) {
+        event.sender.send("file-loaded", "");
+        return;
+    }
+    event.sender.send("file-loaded", filePaths[0]);
+});
+
+ipcMain.on("save-file", async (event: IpcMainEvent) => {
 });

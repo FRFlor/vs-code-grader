@@ -7,7 +7,7 @@ $vs_light_blue: #7AC1FF;
 $vs_blue: #1C97EA;
 $vs_dark_blue: #007ACC;
 $vs_green: #8DD28A;
-
+$vs_folder_yellow: #B5935F;
 
 .flex {
   display: flex;
@@ -32,6 +32,10 @@ $vs_green: #8DD28A;
 
 .fill-light-gray {
   fill: $vs_light_gray;
+}
+
+.fill-folder-yellow {
+  fill: $vs_folder_yellow;
 }
 
 .vertical-mirror {
