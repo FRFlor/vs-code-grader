@@ -88,6 +88,8 @@
         background-color: $vs_dark_gray;
         display: flex;
         height: 35px;
+        position: relative;
+        z-index: 5;
     }
 
     .play-button {

@@ -23,7 +23,7 @@
         private isLineCommented: boolean[] = [];
 
         created() {
-            this.isLineCommented = Array.from({length: 50}, () => false);
+            this.isLineCommented = Array.from({length: 92}, () => false);
         }
 
         onHighlightClicked(index: number) {
@@ -76,13 +76,14 @@ int UTCtoLocal(int UTCtime, int UTCvalue)
     }
 
     .code-viewer {
+        margin-top: -4px;
         display: flex;
         overflow-y: auto;
         width: 460px;
+        height: 530px;
     }
 
     .code-highlight {
-        height: 500px;
         width: 450px;
     }
 
@@ -91,6 +92,7 @@ int UTCtoLocal(int UTCtime, int UTCvalue)
         margin-top: 4px;
         .highlight {
             height: 8.5px;
+            background-color: $vs_dark_gray;
             &:hover {
                 cursor: pointer;
             }
