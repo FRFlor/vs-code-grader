@@ -1,9 +1,12 @@
 <template>
     <div id="app" v-show="!isHidden">
         <top-nav @load-file="openLoadFileDialog"
-                 @save-file="openSaveFileDialog"/>
-        <code-viewer/>
-        <bottom-bar/>
+                 @save-file="openSaveFileDialog"
+                 id="app-top-nav"/>
+        <div id="app-tabs"></div>
+        <project-feedback id="app-project-feedback"/>
+        <code-viewer id="app-code-viewer"/>
+        <bottom-bar id="app-bottom-bar"/>
     </div>
 </template>
 
@@ -15,9 +18,11 @@
     import MouseTrap from "mousetrap";
     import CodeViewer from "@/components/CodeViewer.vue";
     import BottomBar from "@/components/BottomBar.vue";
+    import ProjectFeedback from "@/components/ProjectFeedback.vue";
 
     @Component({
         components: {
+            ProjectFeedback,
             BottomBar,
             CodeViewer,
             TopNav,
@@ -78,5 +83,36 @@
         height: 100vh;
         width: 100vw;
         background: $vs_black;
+    }
+
+    #app {
+        display: grid;
+        grid-template-areas:
+                "topnav  topnav  topnav  topnav  topnav topnav"
+                "proj    proj    tabs    tabs    tabs   tabs"
+                "proj    proj    codc    codc    codc   codc"
+                "botbar  botbar  botbar  botbar  botbar botbar";
+    }
+
+    #app-top-nav {
+        grid-area: topnav;
+    }
+
+    #app-tabs {
+        grid-area: tabs;
+        height: 20px;
+        background-color: red;
+    }
+
+    #app-project-feedback {
+        grid-area: proj;
+    }
+
+    #app-code-viewer {
+        grid-area: codc;
+    }
+
+    #app-bottom-bar {
+        grid-area: botbar;
     }
 </style>

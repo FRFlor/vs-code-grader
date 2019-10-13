@@ -1,4 +1,4 @@
-<template functional>
+<template>
     <div class="bottom-bar">
 
     </div>
@@ -18,7 +18,6 @@
     @import "../scss/app";
 
     .bottom-bar {
-        display: flex;
         height: 20px;
         margin-top: -5px;
         background-color: $vs_dark_gray;

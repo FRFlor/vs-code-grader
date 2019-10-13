@@ -73,7 +73,7 @@
         margin-top: -4px;
         display: flex;
         width: 460px;
-        height: calc(100vh - 45px);
+        height: calc(100vh - 65px);
     }
 
     .code-highlight-empty-space {
