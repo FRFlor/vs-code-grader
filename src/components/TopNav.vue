@@ -42,6 +42,15 @@
             </v-button>
         </div>
         <img src="../assets/divisor.svg" alt="divisor">
+        <div class="run flex">
+            <v-button class="play-button">
+                <div class="flex align-center">
+                    <img src="../assets/play.svg" alt="start">
+                    <span style="margin-left: 0.5rem;">Start Automatic Scan</span>
+                </div>
+            </v-button>
+        </div>
+        <img src="../assets/divisor.svg" alt="divisor">
     </nav>
 </template>
 
@@ -65,8 +74,7 @@
         height: 35px;
     }
 
-    img {
-        pointer-events: none;
+    .play-button {
+        color: $vs_white;
     }
-
 </style>
