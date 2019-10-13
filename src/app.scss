@@ -21,3 +21,19 @@ $vs_green: #8DD28A;
 .no-click {
   pointer-events: none;
 }
+
+.fill-light-blue {
+  fill: $vs_light_blue;
+}
+
+.fill-gray {
+  fill: $vs_gray;
+}
+
+.fill-light-gray {
+  fill: $vs_light_gray;
+}
+
+.vertical-mirror {
+  transform: scaleX(-1);
+}

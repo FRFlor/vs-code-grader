@@ -2,67 +2,71 @@
     <nav class="flex">
         <div class="switch-tabs flex">
             <v-button>
-                <img src="../assets/arrowLeft.svg" alt="go to previous tab">
+                <vue-svg name="arrowLeft" class="fill-light-blue"/>
             </v-button>
             <v-button>
-                <img src="../assets/caret.svg" alt="see open tabs">
+                <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
             <v-button>
-                <img src="../assets/arrowLeft.svg" style="transform: scaleX(-1);" alt="go to next tab">
+                <vue-svg name="arrowLeft" class="fill-light-blue vertical-mirror"/>
             </v-button>
         </div>
-        <img src="../assets/divisor.svg" alt="divisor">
+        <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="file-options flex">
             <v-button>
-                <img src="../assets/newFile.svg" alt="create new file">
+                <vue-svg name="newFile" class="fill-light-blue"/>
             </v-button>
             <v-button>
-                <img src="../assets/caret.svg" alt="new report">
+                <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
             <v-button>
-                <img src="../assets/save.svg" alt="save">
+                <vue-svg name="open"/>
             </v-button>
             <v-button>
-                <img src="../assets/saveAs.svg" alt="save as">
+                <vue-svg name="save" class="fill-light-blue"/>
+            </v-button>
+            <v-button>
+                <vue-svg name="saveAs" class="fill-light-blue"/>
             </v-button>
         </div>
-        <img src="../assets/divisor.svg" alt="divisor">
+        <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="history flex">
             <v-button>
-                <img src="../assets/back.svg" alt="previous">
+                <vue-svg name="back" class="fill-light-blue"/>
             </v-button>
             <v-button>
-                <img src="../assets/caret.svg" alt="see previous options">
+                <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
             <v-button>
-                <img src="../assets/back.svg" style="transform: scaleX(-1);" alt="next">
+                <vue-svg name="back" class="fill-light-blue vertical-mirror"/>
             </v-button>
             <v-button>
-                <img src="../assets/caret.svg" alt="see next options">
+                <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
         </div>
-        <img src="../assets/divisor.svg" alt="divisor">
+        <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="run flex">
             <v-button class="play-button">
                 <div class="flex align-center">
-                    <img src="../assets/play.svg" alt="start">
+                    <vue-svg name="play" class="fill-light-blue"/>
                     <span style="margin-left: 0.5rem;">Start Automatic Scan</span>
                 </div>
             </v-button>
         </div>
-        <img src="../assets/divisor.svg" alt="divisor">
+        <vue-svg name="divisor" class="fill-light-blue"/>
     </nav>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import VButton from "@/components/VButton.vue";
+import {Component, Vue} from "vue-property-decorator";
+import VButton from "@/components/VButton.vue";
+import VueSvg from "@/components/VueSvg.vue";
 
-    @Component({
-        components: {VButton},
-    })
-    export default class TopNav extends Vue {
-    }
+@Component({
+    components: {VueSvg, VButton},
+})
+export default class TopNav extends Vue {
+}
 </script>
 
 <style lang="scss" scoped>
@@ -76,5 +80,10 @@
 
     .play-button {
         color: $vs_white;
+    }
+
+    img {
+        fill: red !important;
+        stroke: red;
     }
 </style>
