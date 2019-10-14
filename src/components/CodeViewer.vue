@@ -2,7 +2,7 @@
     <div class="code-viewer">
         <div class="highlight-wrapper" id="highlights">
             <div class="highlight"
-                 v-for="(isCommented, index) in tabs.currentHighlightedLines"
+                 v-for="(isCommented, index) in currentHighlightedLines"
                  @click="onHighlightClicked(index)"
                  :class="{'pink': isCommented}"></div>
         </div>
@@ -10,7 +10,7 @@
             <pre class="language-javascript"
                  @scroll="onscroll" @mousedown="onMouseDown" @mouseup="onMouseUp">
               <code>
-                        {{tabs.currentCodeSelected}}
+                        {{currentCodeSelected}}
               </code>
             </pre>
         </div>
@@ -20,13 +20,19 @@
 
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
-import {TabsModule} from "@/store/modules/TabsModule";
 
 @Component
 export default class CodeViewer extends Vue {
-    private tabs = TabsModule;
     private startLineSelected: number = -1;
     private endLineSelected: number = -1;
+
+    private get currentCodeSelected() {
+        return this.$store.getters.currentCodeSelected;
+    }
+
+    private get currentHighlightedLines() {
+        return this.$store.getters.currentHighlightedLines;
+    }
 
     private get codeBox(): HTMLDivElement {
         return document.getElementById("code-box") as HTMLDivElement;
@@ -55,7 +61,7 @@ export default class CodeViewer extends Vue {
         }
         const start: number = Math.min(this.startLineSelected, this.endLineSelected);
         const end: number = Math.max(this.startLineSelected, this.endLineSelected);
-        this.tabs.highlightLines({start, end});
+        this.$store.commit('highlightLines', {start, end});
     }
 
     private onscroll(e: MouseEvent) {

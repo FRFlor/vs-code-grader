@@ -19,7 +19,7 @@
             <v-button v-tooltip="tooltipContent('Load (\'Ctrl + O\')')"
                       @click="$emit('load-file')"
                       class="fill-folder-yellow"
-                      :class="{'disabled': app.isBusy}">
+                      :class="{'disabled': isBusy}">
                 <vue-svg name="open"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Save (\'Ctrl + S\')')">
@@ -27,7 +27,7 @@
             </v-button>
             <v-button v-tooltip="tooltipContent('Save As (\'Ctrl + Shift + S\')')"
                       @click="$emit('save-file')">
-                <vue-svg name="saveAs" class="fill-light-blue" :class="{'disabled': app.isBusy}"/>
+                <vue-svg name="saveAs" class="fill-light-blue" :class="{'disabled': isBusy}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Print (\'Ctrl + P\')')">
                 <vue-svg name="print" class="fill-light-blue"/>
@@ -35,14 +35,18 @@
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="history flex h-100">
-            <v-button v-tooltip="tooltipContent('Undo (\'Ctrl + Z\')')">
-                <vue-svg name="back" class="fill-light-blue"/>
+            <v-button v-tooltip="tooltipContent('Undo (\'Ctrl + Z\')')"
+                        @click="undo">
+                <vue-svg name="back"
+                         class="fill-light-blue"
+                         :class="{'disabled': !canUndo}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Undo actions')">
                 <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
-            <v-button v-tooltip="tooltipContent('Redo (\'Ctrl + Y\')')">
-                <vue-svg name="back" class="fill-light-blue vertical-mirror"/>
+            <v-button v-tooltip="tooltipContent('Redo (\'Ctrl + Y\')')"
+            @click="redo">
+                <vue-svg name="back" class="fill-light-blue vertical-mirror" :class="{'disabled': !canRedo}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Redo actions')">
                 <vue-svg name="caret" class="fill-light-gray"/>
@@ -66,17 +70,34 @@
     import {Component, Vue} from "vue-property-decorator";
     import VButton from "@/components/VButton.vue";
     import VueSvg from "@/components/VueSvg.vue";
-    import {AppModule} from "@/store/modules/AppModule";
 
 
     @Component({
         components: {VueSvg, VButton},
     })
     export default class TopNav extends Vue {
-        private app = AppModule;
+        private get isBusy(): boolean {
+            return this.$store.state.isBusy;
+        }
 
         private tooltipContent(content: string) {
             return {content, delay: {show: 500, hide: 100}};
+        }
+
+        private get canUndo(): boolean {
+            return this.$store.state.canUndo;
+        }
+
+        private get canRedo(): boolean {
+            return this.$store.state.canRedo;
+        }
+
+        private async undo(): Promise<void> {
+            await this.$store.dispatch('undo');
+        }
+
+        private async redo(): Promise<void> {
+            await this.$store.dispatch('redo');
         }
     }
 </script>

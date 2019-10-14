@@ -6,3 +6,4 @@ declare module "*.vue" {
 declare module "v-tooltip";
 declare module "vue-code-highlight";
 declare module "mousetrap";
+declare module "undo-redo-vuex";

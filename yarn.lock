@@ -8705,6 +8705,11 @@ uglify-js@3.4.x:
     commander "~2.19.0"
     source-map "~0.6.1"
 
+undo-redo-vuex@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/undo-redo-vuex/-/undo-redo-vuex-1.2.0.tgz#325b13663ca5c46b16103cac64353ba65d435e04"
+  integrity sha512-Fg0xsZavP5y7wNbft7B1aRKQqGNX7fktzjlDLL7VEn/Rot/p0H4/1zr5vc1SKGd93xENMeOcK/aLWQl3IJ9/nA==
+
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/unicode-canonical-property-names-ecmascript/-/unicode-canonical-property-names-ecmascript-1.0.4.tgz#2619800c4c825800efdd8343af7dd9933cbe2818"
