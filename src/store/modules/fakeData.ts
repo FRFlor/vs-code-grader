@@ -1,21 +1,5 @@
 export const dummyCode = getDummyCode();
 
-export const initialState = {
-    hasUnsavedChanges: false,
-    isBusy: false,
-    projectName: "",
-    students: [],
-    tabs: [
-        {
-            codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
-            highlightedLines: initializeHighlightedLines(),
-            fileName: "helloWorld.cpp",
-        },
-    ],
-    currentTabIndex: 0,
-};
-
-
 function getDummyCode() {
     return `
 /*

@@ -1,84 +1,107 @@
 <template>
     <div class="project-feedback">
-        <div class="project-name">
-            <h2>Project Name:</h2>
-            <input type="text"
-                   :value="$store.state.projectName"
-                   @blur="$store.commit('setProjectName', $event.target.value)">
-        </div>
-        <div class="students">
-            <h2>Student(s):</h2>
-            <div class="input-group">
-                <div class="student-name-wrapper"
-                     v-for="(student, index) in students">
+        <div class="flex justify-space-around">
+            <div class="project-name-and-day">
+                <div>
+                    <h2>Project Name:</h2>
                     <input type="text"
-                           :value="student"
-                           @keypress.ctrl="()=>null"
-                           :id="`student-${index}`"
-                           @blur="event => updateStudent(index, event.target.value)"
-                           @keypress.enter="goToNext(index)"/>
-                    <v-button class="delete-student" @click="deleteStudent(index)">
-                        X
-                    </v-button>
+                           :value="$store.state.projectName"
+                           @blur="$store.commit('setProjectName', $event.target.value)">
+                </div>
+                <div>
+                    <h2>Date:</h2>
+                    <div class="date-picker">
+                        <datepicker class="date-input"
+                                    ref="datepicker"
+                                    @input="$store.commit('setDate', $event)"
+                                    :value="$store.state.date"/>
+                        <v-button @click="$refs.datepicker.showCalendar()">
+                            <vue-svg name="calendar" class="calendar-icon"/>
+                        </v-button>
+                    </div>
                 </div>
 
-                <input placeholder="You may insert another student here..."
-                       v-model="newStudent"
-                       id="new-student"
-                       @input="addNewStudent"/>
+            </div>
+            <div class="students">
+                <h2>Student(s):</h2>
+                <div class="input-group">
+                    <div class="student-name-wrapper"
+                         v-for="(student, index) in students">
+                        <input type="text"
+                               :value="student"
+                               @keypress.ctrl="()=>null"
+                               :id="`student-${index}`"
+                               @blur="event => updateStudent(index, event.target.value)"
+                               @keypress.enter="goToNext(index)"/>
+                        <v-button class="delete-student" @click="deleteStudent(index)">
+                            X
+                        </v-button>
+                    </div>
+
+                    <input placeholder="You may insert another student here..."
+                           v-model="newStudent"
+                           type="text"
+                           id="new-student"
+                           @input="addNewStudent"/>
+                </div>
             </div>
         </div>
+
 
     </div>
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import VButton from "@/components/VButton.vue";
+    import {Component, Vue} from "vue-property-decorator";
+    import VButton from "@/components/VButton.vue";
+    import Datepicker from "vuejs-datepicker";
+    import VueSvg from "@/components/VueSvg.vue";
 
-@Component({
-    components: {VButton},
-})
-export default class ProjectFeedback extends Vue {
-    private newStudent: string = "";
+    @Component({
+        components: {VueSvg, VButton, Datepicker},
+    })
+    export default class ProjectFeedback extends Vue {
+        private newStudent: string = "";
+        private date: Date = new Date();
 
-    private updateStudent(id: number, name: string) {
-        console.log("update", name);
-        if (name === "") {
-            this.deleteStudent(id);
-            return;
+
+        private updateStudent(id: number, name: string) {
+            console.log("update", name);
+            if (name === "") {
+                this.deleteStudent(id);
+                return;
+            }
+
+            this.$store.commit("editStudent", {id, name});
         }
 
-        this.$store.commit("editStudent", {id, name});
-    }
+        private deleteStudent(id: number) {
+            this.$store.commit("deleteStudent", id);
+        }
 
-    private deleteStudent(id: number) {
-        this.$store.commit("deleteStudent", id);
-    }
+        private goToNext(index: number) {
+            const target = (index === this.$store.state.students.length - 1)
+                ? "new-student" : `student-${index + 1}`;
 
-    private goToNext(index: number) {
-        const target = (index === this.$store.state.students.length - 1)
-            ? "new-student" : `student-${index + 1}`;
+            this.getInput(target).focus();
+        }
 
-        this.getInput(target).focus();
-    }
+        private addNewStudent() {
+            this.$store.commit("addStudent", this.newStudent);
+            this.newStudent = "";
+            this.$nextTick(() => {
+                this.getInput(`student-${this.$store.state.students.length - 1}`).focus();
+            });
+        }
 
-    private addNewStudent() {
-        this.$store.commit("addStudent", this.newStudent);
-        this.newStudent = "";
-        this.$nextTick(() => {
-            this.getInput(`student-${this.$store.state.students.length - 1}`).focus();
-        });
-    }
+        private getInput(id: string): HTMLInputElement {
+            return document.getElementById(id) as HTMLInputElement;
+        }
 
-    private getInput(id: string): HTMLInputElement {
-        return document.getElementById(id) as HTMLInputElement;
+        private get students() {
+            return this.$store.state.students;
+        }
     }
-
-    private get students() {
-        return this.$store.state.students;
-    }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -86,15 +109,29 @@ export default class ProjectFeedback extends Vue {
 
     .project-feedback {
         display: flex;
-        justify-content: space-around;
+        flex-direction: column;
     }
 
+    .date-picker {
+        display: flex;
+
+        button {
+            background-color: $vs_dark_gray;
+
+            .calendar-icon {
+                transform: scale(2);
+                fill: white;
+            }
+        }
+
+    }
     .students {
         .input-group {
             padding-right: 10px;
-            max-height: 110px;
+            max-height: 80px;
             overflow-y: auto;
         }
+
         .student-name-wrapper {
             display: flex;
             margin-bottom: 10px;
@@ -113,7 +150,6 @@ export default class ProjectFeedback extends Vue {
         }
     }
 
-
     input {
         width: 200px;
         padding-right: 35px;
@@ -124,5 +160,6 @@ export default class ProjectFeedback extends Vue {
         font-weight: normal;
         font-size: 1rem;
     }
+
 
 </style>

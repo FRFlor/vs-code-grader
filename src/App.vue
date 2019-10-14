@@ -11,67 +11,67 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import TopNav from "./components/TopNav.vue";
-import {ipcRenderer, IpcRendererEvent} from "electron";
-import MouseTrap from "mousetrap";
-import CodeViewer from "@/components/CodeViewer.vue";
-import BottomBar from "@/components/BottomBar.vue";
-import ProjectFeedback from "@/components/ProjectFeedback.vue";
+    import {Component, Vue} from "vue-property-decorator";
+    import TopNav from "./components/TopNav.vue";
+    import {ipcRenderer, IpcRendererEvent} from "electron";
+    import MouseTrap from "mousetrap";
+    import CodeViewer from "@/components/CodeViewer.vue";
+    import BottomBar from "@/components/BottomBar.vue";
+    import ProjectFeedback from "@/components/ProjectFeedback.vue";
 
-@Component({
-    components: {
-        ProjectFeedback,
-        BottomBar,
-        CodeViewer,
-        TopNav,
-    },
-})
-export default class App extends Vue {
-    private isHidden: boolean = true;
+    @Component({
+        components: {
+            ProjectFeedback,
+            BottomBar,
+            CodeViewer,
+            TopNav,
+        },
+    })
+    export default class App extends Vue {
+        private isHidden: boolean = true;
 
-    private created() {
-        ipcRenderer.on("zoom-removed", () => this.isHidden = false);
+        private created() {
+            ipcRenderer.on("zoom-removed", () => this.isHidden = false);
 
-        ipcRenderer.on("file-loaded", (event: IpcRendererEvent, fileLoaded: string) => {
-            this.$store.commit("changeBusyTo", false);
-            alert(`Add new tab for: ${fileLoaded}`);
-        });
-        ipcRenderer.on("file-saved", () => {
-            this.$store.commit("changeBusyTo", false);
-            this.$store.commit("setHasUnsavedChanges", false);
-        });
+            ipcRenderer.on("file-loaded", (event: IpcRendererEvent, fileLoaded: string) => {
+                this.$store.commit("changeBusyTo", false);
+                alert(`Add new tab for: ${fileLoaded}`);
+            });
+            ipcRenderer.on("file-saved", () => {
+                this.$store.commit("changeBusyTo", false);
+                this.$store.commit("setHasUnsavedChanges", false);
+            });
 
-        MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());
-        MouseTrap.bind(["command+z", "ctrl+z"], async () => await this.$store.dispatch("undo"));
-        MouseTrap.bind(["command+y", "ctrl+y"], async () => await this.$store.dispatch("redo"));
-    }
-
-    private checkForBusy(): boolean {
-        if (this.$store.state.isBusy) {
-            return false;
-        }
-        this.$store.commit("changeBusyTo", true);
-
-        return true;
-    }
-
-    private openLoadFileDialog() {
-        if (!this.checkForBusy()) {
-            return;
+            MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());
+            MouseTrap.bind(["command+z", "ctrl+z"], async () => await this.$store.dispatch("undo"));
+            MouseTrap.bind(["command+y", "ctrl+y"], async () => await this.$store.dispatch("redo"));
         }
 
-        ipcRenderer.send("open-file");
-    }
+        private checkForBusy(): boolean {
+            if (this.$store.state.isBusy) {
+                return false;
+            }
+            this.$store.commit("changeBusyTo", true);
 
-    private openSaveFileDialog() {
-        if (!this.checkForBusy()) {
-            return;
+            return true;
         }
 
-        ipcRenderer.send("save-file");
+        private openLoadFileDialog() {
+            if (!this.checkForBusy()) {
+                return;
+            }
+
+            ipcRenderer.send("open-file");
+        }
+
+        private openSaveFileDialog() {
+            if (!this.checkForBusy()) {
+                return;
+            }
+
+            ipcRenderer.send("save-file");
+        }
     }
-}
 </script>
 
 <style lang="scss">
@@ -88,11 +88,13 @@ export default class App extends Vue {
 
     #app {
         display: grid;
+        // @formatter:off
         grid-template-areas:
-                "topnav    topnav  topnav  topnav topnav"
-                "proj    tabs    tabs    tabs   tabs"
-                "proj    codc    codc    codc   codc"
-                "botbar  botbar  botbar  botbar botbar";
+                "topnav    topnav  topnav  topnav topnav  topnav  topnav topnav topnav"
+                "proj    tabs    tabs    tabs   tabs  tabs  tabs tabs tabs"
+                "proj    codc    codc    codc   codc  codc  codc codc codc"
+                "botbar  botbar  botbar  botbar botbar  botbar  botbar botbar botbar";
+        // @formatter:on
     }
 
     #app-top-nav {

@@ -21,9 +21,9 @@ const sendEvent = (channel: string, ...args: any[]) => {
 function createWindow() {
     // Create the browser window.
     win = new BrowserWindow({
-        width: 800,
+        width: 1300,
         height: 600,
-        minWidth: 800,
+        minWidth: 1300,
         minHeight: 600,
         webPreferences: {
             nodeIntegration: true,

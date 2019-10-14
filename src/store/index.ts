@@ -3,9 +3,8 @@ import * as Vuex from "vuex";
 import {Store} from "vuex";
 import undoRedo from "undo-redo-vuex";
 import {IStoreRoot} from "@/types";
-import masterModule from "./modules/MasterModule.js";
-// @ts-ignore
-console.log({masterModule});
+import masterModule from "./modules/MasterModule";
+
 Vue.use(Vuex);
 
 // @ts-ignore

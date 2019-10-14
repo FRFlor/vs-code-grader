@@ -3,6 +3,7 @@ import {dummyCode} from "./fakeData";
 
 const state = {
     hasUnsavedChanges: false,
+    date: new Date(),
     isBusy: false,
     students: [],
     projectName: "",
@@ -30,6 +31,9 @@ const actions = {};
 const mutations = {
     changeBusyTo: (state, isBusy) => {
         state.isBusy = isBusy;
+    },
+    setDate: (state, date) => {
+        state.date = date;
     },
     setHasUnsavedChanges: (state, hasUnsavedChanges) => {
         state.hasUnsavedChanges = hasUnsavedChanges;
@@ -70,6 +74,7 @@ const mutations = {
     },
     emptyState: (state) => {
         state.hasUnsavedChanges = false;
+        state.date = new Date();
         state.projectName = "";
         state.students = [];
         state.isBusy = false;
