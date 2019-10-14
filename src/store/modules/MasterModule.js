@@ -1,6 +1,5 @@
 import {scaffoldStore} from "undo-redo-vuex";
-
-const dummyCode = getDummyCode();
+import {dummyCode} from "./fakeData";
 
 const state = {
     hasUnsavedChanges: false,
@@ -33,6 +32,9 @@ const mutations = {
     },
     setHasUnsavedChanges: (state, hasUnsavedChanges) => {
         state.hasUnsavedChanges = hasUnsavedChanges;
+    },
+    setProjectName: (state, name) => {
+       state.projectName = name;
     },
     addStudent: (state, name) => {
         state.hasUnsavedChanges = true;
@@ -67,6 +69,7 @@ const mutations = {
     },
     emptyState: (state) => {
         state.hasUnsavedChanges = false;
+        state.projectName = "";
         state.students = [];
         state.isBusy = false;
         state.tabs = [
@@ -91,38 +94,4 @@ export default masterModule;
 
 function initializeHighlightedLines() {
     return Array.from({length: 300}, () => false);
-};
-
-function getDummyCode() {
-    return `
-/*
-Name: UTCToLocal()
-
-Description: Converts the Greenwich Time to Local Time
-
-Parameters:
-- int UTCTime: UTC time in the format HHMM or HMM (only numbers)
-- UTCValue: The corresponding UTC timezone, for example, EST has an UTC value of -5.
-Returns:
-- time in the Local TimeZone
-
-*/
-int UTCtoLocal(int UTCtime, int UTCvalue)
-{
-\tint hour = 0, minute = 0;
-
-\thour = UTCtime / 100;  // Obtain Hours by removing 2 digits from the right
-\tminute = UTCtime - hour * 100;  // Obtain Minutes by removing digits from the left
-\t
-\tif (hour + UTCvalue >= 24)
-\t{
-\t\thour -= 24;
-\t}
-\telse if (hour + UTCvalue < 0)
-\t{
-\t\thour += 24;
-\t}
-\thour += UTCvalue;
-\treturn hour * 100 + minute;
-}`;
 };

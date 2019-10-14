@@ -89,10 +89,10 @@
     #app {
         display: grid;
         grid-template-areas:
-                "topnav  topnav  topnav  topnav  topnav topnav"
-                "proj    proj    tabs    tabs    tabs   tabs"
-                "proj    proj    codc    codc    codc   codc"
-                "botbar  botbar  botbar  botbar  botbar botbar";
+                "topnav    topnav  topnav  topnav topnav"
+                "proj    tabs    tabs    tabs   tabs"
+                "proj    codc    codc    codc   codc"
+                "botbar  botbar  botbar  botbar botbar";
     }
 
     #app-top-nav {
