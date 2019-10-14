@@ -48,8 +48,8 @@ int UTCtoLocal(int UTCtime, int UTCvalue)
 \thour += UTCvalue;
 \treturn hour * 100 + minute;
 }`;
-};
+}
 
 function initializeHighlightedLines() {
     return Array.from({length: 300}, () => false);
-};
+}

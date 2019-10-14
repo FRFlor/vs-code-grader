@@ -33,52 +33,52 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import VButton from "@/components/VButton.vue";
+import {Component, Vue} from "vue-property-decorator";
+import VButton from "@/components/VButton.vue";
 
-    @Component({
-        components: {VButton}
-    })
-    export default class ProjectFeedback extends Vue {
-        private newStudent: string = "";
+@Component({
+    components: {VButton},
+})
+export default class ProjectFeedback extends Vue {
+    private newStudent: string = "";
 
-        private updateStudent(id: number, name: string) {
-            console.log("update", name);
-            if (name === "") {
-                this.deleteStudent(id);
-                return;
-            }
-
-            this.$store.commit("editStudent", {id, name});
+    private updateStudent(id: number, name: string) {
+        console.log("update", name);
+        if (name === "") {
+            this.deleteStudent(id);
+            return;
         }
 
-        private deleteStudent(id: number) {
-            this.$store.commit("deleteStudent", id);
-        }
-
-        private goToNext(index: number) {
-            const target = (index === this.$store.state.students.length - 1)
-                ? "new-student" : `student-${index + 1}`;
-
-            this.getInput(target).focus();
-        }
-
-        private addNewStudent() {
-            this.$store.commit("addStudent", this.newStudent);
-            this.newStudent = "";
-            this.$nextTick(() => {
-                this.getInput(`student-${this.$store.state.students.length - 1}`).focus();
-            });
-        }
-
-        private getInput(id: string): HTMLInputElement {
-            return document.getElementById(id) as HTMLInputElement;
-        }
-
-        private get students() {
-            return this.$store.state.students;
-        }
+        this.$store.commit("editStudent", {id, name});
     }
+
+    private deleteStudent(id: number) {
+        this.$store.commit("deleteStudent", id);
+    }
+
+    private goToNext(index: number) {
+        const target = (index === this.$store.state.students.length - 1)
+            ? "new-student" : `student-${index + 1}`;
+
+        this.getInput(target).focus();
+    }
+
+    private addNewStudent() {
+        this.$store.commit("addStudent", this.newStudent);
+        this.newStudent = "";
+        this.$nextTick(() => {
+            this.getInput(`student-${this.$store.state.students.length - 1}`).focus();
+        });
+    }
+
+    private getInput(id: string): HTMLInputElement {
+        return document.getElementById(id) as HTMLInputElement;
+    }
+
+    private get students() {
+        return this.$store.state.students;
+    }
+}
 </script>
 
 <style lang="scss" scoped>

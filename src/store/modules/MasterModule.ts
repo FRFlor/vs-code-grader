@@ -5,6 +5,7 @@ const state = {
     hasUnsavedChanges: false,
     isBusy: false,
     students: [],
+    projectName: "",
     tabs: [
         {
             codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
@@ -34,7 +35,7 @@ const mutations = {
         state.hasUnsavedChanges = hasUnsavedChanges;
     },
     setProjectName: (state, name) => {
-       state.projectName = name;
+        state.projectName = name;
     },
     addStudent: (state, name) => {
         state.hasUnsavedChanges = true;
@@ -94,4 +95,4 @@ export default masterModule;
 
 function initializeHighlightedLines() {
     return Array.from({length: 300}, () => false);
-};
+}

@@ -61,7 +61,7 @@ export default class CodeViewer extends Vue {
         }
         const start: number = Math.min(this.startLineSelected, this.endLineSelected);
         const end: number = Math.max(this.startLineSelected, this.endLineSelected);
-        this.$store.commit('highlightLines', {start, end});
+        this.$store.commit("highlightLines", {start, end});
     }
 
     private onscroll(e: MouseEvent) {

@@ -71,58 +71,58 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import VButton from "@/components/VButton.vue";
-    import VueSvg from "@/components/VueSvg.vue";
+import {Component, Vue} from "vue-property-decorator";
+import VButton from "@/components/VButton.vue";
+import VueSvg from "@/components/VueSvg.vue";
 
-    @Component({
-        components: {VueSvg, VButton},
-    })
-    export default class TopNav extends Vue {
-        private hasEverBeenSavedBefore: boolean = false;
+@Component({
+    components: {VueSvg, VButton},
+})
+export default class TopNav extends Vue {
+    private hasEverBeenSavedBefore: boolean = false;
 
-        private get isBusy(): boolean {
-            return this.$store.state.isBusy;
-        }
-
-        private tooltipContent(content: string) {
-            return {content, delay: {show: 500, hide: 100}};
-        }
-
-        private save() {
-            if (this.hasEverBeenSavedBefore) {
-                this.$store.commit("setHasUnsavedChanges", false);
-                return;
-            }
-            this.hasEverBeenSavedBefore = true;
-            this.$emit('save-file');
-        }
-
-        private saveAs() {
-            this.hasEverBeenSavedBefore = true;
-            this.$emit('save-file');
-        }
-
-        private get canUndo(): boolean {
-            return this.$store.state.canUndo;
-        }
-
-        private get canRedo(): boolean {
-            return this.$store.state.canRedo;
-        }
-
-        private get hasUnsavedChanges(): boolean {
-            return this.$store.state.hasUnsavedChanges;
-        }
-
-        private async undo(): Promise<void> {
-            await this.$store.dispatch("undo");
-        }
-
-        private async redo(): Promise<void> {
-            await this.$store.dispatch("redo");
-        }
+    private get isBusy(): boolean {
+        return this.$store.state.isBusy;
     }
+
+    private tooltipContent(content: string) {
+        return {content, delay: {show: 500, hide: 100}};
+    }
+
+    private save() {
+        if (this.hasEverBeenSavedBefore) {
+            this.$store.commit("setHasUnsavedChanges", false);
+            return;
+        }
+        this.hasEverBeenSavedBefore = true;
+        this.$emit("save-file");
+    }
+
+    private saveAs() {
+        this.hasEverBeenSavedBefore = true;
+        this.$emit("save-file");
+    }
+
+    private get canUndo(): boolean {
+        return this.$store.state.canUndo;
+    }
+
+    private get canRedo(): boolean {
+        return this.$store.state.canRedo;
+    }
+
+    private get hasUnsavedChanges(): boolean {
+        return this.$store.state.hasUnsavedChanges;
+    }
+
+    private async undo(): Promise<void> {
+        await this.$store.dispatch("undo");
+    }
+
+    private async redo(): Promise<void> {
+        await this.$store.dispatch("redo");
+    }
+}
 </script>
 
 <style lang="scss" scoped>
