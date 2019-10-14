@@ -18,10 +18,7 @@
     @import "../scss/app";
 
     .bottom-bar {
-        height: 20px;
-        margin-top: -3px;
+        height: 1.25rem;
         background-color: $vs_dark_gray;
-        position: relative;
-        z-index: 2;
     }
 </style>

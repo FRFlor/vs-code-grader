@@ -1,27 +1,32 @@
 <template>
-    <div class="code-viewer">
-        <div class="highlight-wrapper" id="highlights">
-            <div class="highlight"
-                 v-for="(isCommented, index) in currentHighlightedLines"
-                 @click="onHighlightClicked(index)"
-                 :class="{'pink': isCommented}"></div>
-        </div>
-        <div v-highlight id="code-box" v-if="shouldExist">
+    <div class="flex column">
+        <solution-tabs id="app-tabs"/>
+        <div class="code-viewer">
+            <div class="gutter" id="gutter">
+                <div class="single-line-gutter"
+                     v-for="(isCommented, index) in currentHighlightedLines"
+                     @click="onHighlightClicked(index)"
+                     :class="{'pink': isCommented}"></div>
+            </div>
+            <div v-highlight id="code-box" v-if="shouldExist">
             <pre class="language-javascript"
                  @scroll="onscroll" @mousedown="onMouseDown" @mouseup="onMouseUp">
               <code>
                         {{currentCodeSelected}}
               </code>
             </pre>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script lang="ts">
     import {Component, Vue, Watch} from "vue-property-decorator";
+    import SolutionTabs from "@/components/SolutionTabs.vue";
 
-    @Component
+    @Component({
+        components: {SolutionTabs}
+    })
     export default class CodeViewer extends Vue {
 
         private get currentCodeSelected() {
@@ -37,7 +42,7 @@
         }
 
         private get gutter(): HTMLDivElement {
-            return document.getElementById("highlights") as HTMLDivElement;
+            return document.getElementById("gutter") as HTMLDivElement;
         }
 
         private get topYOfCodeBox(): number {
@@ -84,22 +89,22 @@
     @import "~vue-code-highlight/themes/prism-okaidia.css";
     @import "../scss/app";
 
-    $gutter-width: 12px;
-    $code-box-width: 450px;
-    $code-box-height: calc(100vh - 67px);
+    $gutter-width: 0.75rem;
+    $code-box-width: 100%;
+    $code-box-height: 25rem;
 
 
     .code-viewer {
-        margin-top: -4px;
+        margin-top: -0.25rem;
         display: flex;
-        width: $gutter-width + $code-box-width;
+        width: 100%;
         height: $code-box-height;
     }
 
     #code-box {
         display: flex;
         flex-direction: column;
-        font-size: 10px;
+        font-size: 0.625rem;
         width: $code-box-width;
 
         pre {
@@ -107,17 +112,17 @@
         }
     }
 
-    .highlight-wrapper {
+    .gutter {
         width: $gutter-width;
-        margin-top: 4px;
+        margin-top: 0.25rem;
         overflow-y: scroll;
 
         &::-webkit-scrollbar {
             display: none;
         }
 
-        .highlight {
-            height: 8.5px;
+        .single-line-gutter {
+            height: 0.5315rem;
             background-color: $vs_dark_gray;
 
             &:hover {

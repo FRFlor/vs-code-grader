@@ -13,7 +13,6 @@
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
     import VueSvg from "@/components/VueSvg.vue";
-    import {loseFocus} from "@/support";
 
     export enum CheckState {
         None,
@@ -38,7 +37,6 @@
 
         private onClick(event: MouseEvent) {
             this.$emit("input", this.getNextState());
-            this.$nextTick(loseFocus);
         }
 
         private getNextState() {
@@ -60,7 +58,7 @@
     @import "../scss/app";
 
     .caption {
-        font-size: 14px;
+        font-size: 0.875rem;
         font-weight: bold;
     }
 
@@ -107,16 +105,16 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        width: 150px;
-        height: 30px;
-        border-radius: 7px;
+        width: 9.5rem;
+        height: 1.875rem;
+        border-radius: 0.45rem;
 
         button {
-            width: 20px;
-            height: 20px;
+            width: 1.25rem;
+            height: 1.25rem;
             background-color: $vs_white;
             border: 2px solid $vs_dark_gray;
-            margin: 0 15px;
+            margin: 0 0.95rem;
             outline: none;
             display: flex;
             align-items: center;

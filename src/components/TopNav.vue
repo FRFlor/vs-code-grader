@@ -66,7 +66,7 @@
                 <div class="flex align-center">
                     <vue-svg name="play"
                              class="fill-light-blue"/>
-                    <span style="margin-left: 0.5rem; width: 100px;"
+                    <span style="margin-left: 0.5rem; width: 6.25rem;"
                           v-text="$store.state.commentAnalysisProgress ? 'Analyzing ...' : 'Analyze comments'"/>
                 </div>
             </v-button>
@@ -139,7 +139,7 @@
     nav {
         background-color: $vs_dark_gray;
         display: flex;
-        height: 35px;
+        height: 2.2rem;
         position: relative;
         z-index: 5;
     }

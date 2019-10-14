@@ -44,8 +44,8 @@
         background-color: $vs_gray;
         color: $vs_black;
         border: 2px solid $vs_light_gray;
-        width: 175px;
-        padding: 15px 5px;
+        width: 11rem;
+        padding: 0.95rem 0.3125rem;
 
         &.red {
             background-color: #ffd1ca;
@@ -66,13 +66,13 @@
         }
 
         h2 {
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: bold;
-            margin: 0 0 20px;
+            margin: 0 0 1.25rem;
         }
 
         .value {
-            font-size: 18px;
+            font-size: 1.125rem;
             font-weight: bold;
         }
     }

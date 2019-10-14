@@ -4,15 +4,16 @@
                  @save-file="saveVsGradeFile"
                  @load-solutions="loadVsSolutions"
                  id="app-top-nav"/>
-        <solution-tabs id="app-tabs"/>
-        <project-feedback id="app-project-feedback"/>
-        <code-viewer id="app-code-viewer"/>
-        <bottom-bar id="app-bottom-bar"/>
+        <div class="mid-one">
+            <project-feedback id="app-project-feedback"/>
+            <code-viewer id="app-code-viewer"/>
+        </div>
+
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Vue, Watch} from "vue-property-decorator";
     import TopNav from "./components/TopNav.vue";
     import {ipcRenderer, IpcRendererEvent} from "electron";
     import MouseTrap from "mousetrap";
@@ -32,6 +33,20 @@
     })
     export default class App extends Vue {
         private isHidden: boolean = true;
+
+        private mounted() {
+            // this.updateHeight();
+        }
+
+        @Watch("innerHeight")
+        private updateHeight() {
+            console.log("updating height");
+            document.documentElement.style.setProperty("--window-height", window.innerHeight.toString());
+        }
+
+        private get innerHeight() {
+            return window.innerHeight;
+        }
 
         private created() {
             ipcRenderer.on("zoom-removed", () => this.isHidden = false);
@@ -97,51 +112,27 @@
     @import "./scss/app";
     @import "./scss/tooltip";
 
-    html, body {
+    body, html, #app {
         margin: 0;
+        height: 100%;
         overflow: hidden;
-        height: 100vh;
-        width: 100vw;
-        background: $vs_black;
+        background-color: $vs_black;
+        font-size: 18px;
     }
 
     * {
         font-family: "Source Code Pro", sans-serif;
-        font-size: 11px;
+        font-size: 0.7rem;
     }
 
-    *::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    *::placeholder {
         color: $vs_light_gray;
     }
 
-    #app {
-        display: grid;
-        // @formatter:off
-        grid-template-areas:
-                "topnav    topnav  topnav  topnav topnav  topnav  topnav topnav topnav"
-                "proj    tabs    tabs    tabs   tabs  tabs  tabs tabs tabs"
-                "proj    codc    codc    codc   codc  codc  codc codc codc"
-                "botbar  botbar  botbar  botbar botbar  botbar  botbar botbar botbar";
-        // @formatter:on
-    }
-
-    #app-top-nav {
-        grid-area: topnav;
-    }
-
-    #app-tabs {
-        grid-area: tabs;
-    }
-
-    #app-project-feedback {
-        grid-area: proj;
-    }
-
-    #app-code-viewer {
-        grid-area: codc;
-    }
-
-    #app-bottom-bar {
-        grid-area: botbar;
+    .mid-one {
+        display: flex;
+        justify-content: space-around;
+        max-height: 28rem;
+        padding: 0.625rem 1.25rem;
     }
 </style>

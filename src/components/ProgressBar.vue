@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue} from "vue-property-decorator";
+    import {Component, Prop, Vue} from "vue-property-decorator";
 
-@Component
+    @Component
 export default class ProgressBar extends Vue {
     @Prop({default: 0}) public progress!: number;
 }
@@ -20,17 +20,17 @@ export default class ProgressBar extends Vue {
 
     .progress-bar {
         position: relative;
-        height: 15px;
-        width: 150px;
+        height: 0.95rem;
+        width: 9.5rem;
         border: 1px solid #aaa;
-        border-radius: 5px;
-        padding: 3px;
+        border-radius: 0.3rem;
+        padding: 0.2rem;
     }
 
     .progress-fill {
         background-color: $vs_blue;
         height: 100%;
-        border-radius: 2px;
+        border-radius: 0.125rem;
     }
 
     .progress-number {

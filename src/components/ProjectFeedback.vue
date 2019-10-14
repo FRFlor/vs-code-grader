@@ -3,7 +3,7 @@
         <button class="analyze-comments"
                 @click="onAnalyzeClicked">
             <vue-svg name="play"/>
-            <span style="margin-left: 10px;"
+            <span style="margin-left: 0.625rem;"
                   v-text="$store.state.commentAnalysisProgress === null ? 'Analyze Comments' : 'Analyzing ...'"/>
         </button>
         <div class="flex justify-between">
@@ -15,7 +15,7 @@
                            :value="$store.state.projectName"
                            @blur="$store.commit('setProjectName', $event.target.value)">
                 </div>
-                <div style="margin-top: 15px;">
+                <div style="margin-top: 0.95rem;">
                     <h2>Date:</h2>
                     <div class="date-picker">
                         <datepicker class="date-input"
@@ -149,11 +149,11 @@
 
     button.analyze-comments {
         span {
-            font-size: 13px;
+            font-size: 0.8125rem;
         }
 
-        width: 162px;
-        height: 35px;
+        width: 10.125rem;
+        height: 2.2rem;
         display: flex;
         background-color: $lighter_blue;
         border: 2px solid $vs_dark_blue;
@@ -168,7 +168,7 @@
     .project-feedback {
         display: flex;
         flex-direction: column;
-        padding: 10px 20px;
+        min-width: 600px;
     }
 
     .date-picker {
@@ -192,20 +192,20 @@
 
     .students {
         .input-group {
-            max-height: 80px;
+            max-height: 5rem;
             overflow-y: auto;
 
             input {
-                padding-right: 25px;
+                padding-right: 1.5625rem;
             }
         }
 
         .student-name-wrapper {
             display: flex;
-            margin-bottom: 10px;
+            margin-bottom: 0.625rem;
 
             .delete-student {
-                margin-left: -22px;
+                margin-left: -1.375rem;
                 color: hsl(355, 79%, 54%);
                 font-weight: bolder;
 
@@ -219,28 +219,28 @@
     }
 
     .execution-and-comment {
-        margin-top: 20px;
+        margin-top: 1.25rem;
         display: flex;
         justify-content: space-between;
 
         .pill {
-            margin-bottom: 5px;
+            margin-bottom: 0.3125rem;
         }
     }
 
     .general-feedback {
-        margin-top: 10px;
+        margin-top: 0.625rem;
         display: flex;
         flex-direction: column;
 
         textarea {
             flex: 1;
-            height: 50px;
+            height: 3.125rem;
         }
     }
 
     input {
-        width: 200px;
+        width: 12.5rem;
     }
 
     h2 {

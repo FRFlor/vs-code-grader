@@ -31,13 +31,13 @@
 
     .tab {
         display: flex;
-        margin-right: 3px;
+        margin-right: 0.2rem;
         align-items: center;
         justify-content: flex-start;
-        padding: 5px;
+        padding: 0.3rem;
         background-color: $vs_gray;
         color: $vs_white;
-        width: 90px;
+        width: 5.5rem;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
