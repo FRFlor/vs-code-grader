@@ -30,7 +30,6 @@
                          v-for="(student, index) in students">
                         <input type="text"
                                :value="student"
-                               @keypress.ctrl="()=>null"
                                :id="`student-${index}`"
                                @blur="event => updateStudent(index, event.target.value)"
                                @keypress.enter="goToNext(index)"/>
@@ -145,6 +144,10 @@
         .input-group {
             max-height: 80px;
             overflow-y: auto;
+
+            input {
+                padding-right: 25px;
+            }
         }
 
         .student-name-wrapper {
@@ -178,7 +181,6 @@
 
     input {
         width: 200px;
-        padding-right: 35px;
     }
 
     h2 {

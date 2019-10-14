@@ -10,7 +10,7 @@
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "dropbox": "vue-cli-service build --win && mv \"./dist_electron/Visual Studio Grader 0.1.0.exe\" ~/Dropbox/vs-grader-latest.exe"
+    "dropbox": "mv \"./dist_electron/Visual Studio Grader 0.1.0.exe\" ~/Dropbox/vs-grader-latest.exe"
   },
   "dependencies": {
     "core-js": "^2.6.5",
