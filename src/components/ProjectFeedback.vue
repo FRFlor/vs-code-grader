@@ -9,7 +9,7 @@
                            :value="$store.state.projectName"
                            @blur="$store.commit('setProjectName', $event.target.value)">
                 </div>
-                <div>
+                <div style="margin-top: 15px;">
                     <h2>Date:</h2>
                     <div class="date-picker">
                         <datepicker class="date-input"
@@ -58,9 +58,18 @@
         </div>
         <div class="execution-and-comment">
             <div class="flex column">
-                <check-pill class="pill"></check-pill>
-                <check-pill class="pill"></check-pill>
-                <check-pill class="pill"></check-pill>
+                <check-pill class="pill"
+                            caption="Loads"
+                            @input="$store.commit('setLoadsState', $event)"
+                            :state="$store.state.loadsState"/>
+                <check-pill class="pill"
+                            caption="Compiles"
+                            @input="$store.commit('setCompilesState', $event)"
+                            :state="$store.state.compilesState"/>
+                <check-pill class="pill"
+                            caption="Runs"
+                            @input="$store.commit('setRunsState', $event)"
+                            :state="$store.state.runsState"/>
             </div>
 
             <comment-coverage/>
@@ -130,7 +139,7 @@
     .project-feedback {
         display: flex;
         flex-direction: column;
-        padding: 0 20px;
+        padding: 10px 20px;
     }
 
     .date-picker {
@@ -181,6 +190,7 @@
     }
 
     .execution-and-comment {
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
 
@@ -190,7 +200,7 @@
     }
 
     .general-feedback {
-        margin-top: 5px;
+        margin-top: 10px;
         display: flex;
         flex-direction: column;
 

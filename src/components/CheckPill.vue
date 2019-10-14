@@ -3,18 +3,18 @@
          :class="{'success': isSuccess, 'fail': isFail}"
          @click="onClick">
         <button>
-            <vue-svg v-show="isSuccess" name="calendar"/>
-            <vue-svg v-show="isFail" name="save"/>
+            <vue-svg v-show="isSuccess" name="check"/>
+            <vue-svg v-show="isFail" name="cross"/>
         </button>
-        <span class="caption">Loads</span>
+        <span class="caption" v-text="caption"/>
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
+    import {Component, Prop, Vue} from "vue-property-decorator";
     import VueSvg from "@/components/VueSvg.vue";
 
-    enum CheckState {
+    export enum CheckState {
         None,
         Success,
         Fail
@@ -24,7 +24,8 @@
         components: {VueSvg}
     })
     export default class CheckPill extends Vue {
-        private state: CheckState = CheckState.None;
+        @Prop({default: () => CheckState.None}) private state!: CheckState;
+        @Prop({default: "Caption"}) private caption!: string;
 
         private get isSuccess(): boolean {
             return this.state === CheckState.Success;
@@ -35,9 +36,8 @@
         }
 
         private onClick(event: MouseEvent) {
-            this.switchState();
+            this.$emit("input", this.getNextState());
             setTimeout(this.loseFocus, 150);
-
         }
 
         private loseFocus() {
@@ -50,14 +50,14 @@
             }
         }
 
-        private switchState() {
+        private getNextState() {
             switch (this.state) {
                 case CheckState.None:
-                    return this.state = CheckState.Success;
+                    return CheckState.Success;
                 case CheckState.Success:
-                    return this.state = CheckState.Fail;
+                    return CheckState.Fail;
                 case CheckState.Fail:
-                    return this.state = CheckState.None;
+                    return CheckState.None;
                 default:
                     return;
             }
@@ -75,7 +75,15 @@
 
     .check-pill {
         background-color: $vs_gray;
-        border-color: $vs_light_gray;
+        border: 2px solid $vs_light_gray;
+
+        &:hover {
+            cursor: pointer;
+
+            button {
+                background-color: $vs_light_blue;
+            }
+        }
 
         &.success {
             background-color: $vs_green;

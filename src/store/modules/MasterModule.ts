@@ -1,9 +1,14 @@
 import {scaffoldStore} from "undo-redo-vuex";
 import {dummyCode} from "./fakeData";
+// @ts-ignore
+import {CheckState} from "@/components/CheckPill.vue";
 
 const state = {
     hasUnsavedChanges: false,
     date: new Date(),
+    loadsState: CheckState.None,
+    compilesState: CheckState.None,
+    runsState: CheckState.None,
     projectComment: "",
     coveragePercent: null,
     commentAnalysisProgress: null,
@@ -153,8 +158,20 @@ const mutations = {
 
         state.tabs = [...state.tabs];
     },
+    setLoadsState: (state, newState) => {
+        state.loadsState = newState;
+    },
+    setCompilesState: (state, newState) => {
+        state.compilesState = newState;
+    },
+    setRunsState: (state, newState) => {
+        state.runsState = newState;
+    },
     emptyState: (state) => {
         state.hasUnsavedChanges = false;
+        state.loadsState = CheckState.None;
+        state.compilesState = CheckState.None;
+        state.runsState = CheckState.None;
         state.date = new Date();
         state.projectName = "";
         state.projectComment = "";
