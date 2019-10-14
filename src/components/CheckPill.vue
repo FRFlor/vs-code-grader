@@ -17,11 +17,11 @@
     export enum CheckState {
         None,
         Success,
-        Fail
+        Fail,
     }
 
     @Component({
-        components: {VueSvg}
+        components: {VueSvg},
     })
     export default class CheckPill extends Vue {
         @Prop({default: () => CheckState.None}) private state!: CheckState;
@@ -45,7 +45,7 @@
                 return;
             }
 
-            if (document.activeElement.toString() == "[object HTMLButtonElement]") {
+            if (document.activeElement.toString() === "[object HTMLButtonElement]") {
                 (document.activeElement as HTMLButtonElement).blur();
             }
         }
