@@ -1,5 +1,5 @@
 "use strict";
-
+import "./background/menu";
 import {app, BrowserWindow, dialog, ipcMain, IpcMainEvent, protocol} from "electron";
 import {createProtocol, installVueDevtools} from "vue-cli-plugin-electron-builder/lib";
 
