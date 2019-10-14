@@ -89,6 +89,7 @@
 
     * {
         font-family: "Source Code Pro", sans-serif;
+        font-size: 11px;
     }
 
     *::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
