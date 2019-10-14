@@ -12,7 +12,7 @@ const store: Store<IStoreRoot> = new Vuex.Store<IStoreRoot>({
         ...masterModule,
         plugins: [
             undoRedo({
-                ignoreMutations: [],
+                ignoreMutations: ["setIsAnalyzingCoverage", "changeBusyTo"],
             }),
         ],
     },

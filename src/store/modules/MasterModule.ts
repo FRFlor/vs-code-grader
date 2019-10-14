@@ -30,8 +30,7 @@ const getters = {
 };
 
 const actions = {
-    analyzeCoverage: ({commit}) => {
-        console.log("analyzing");
+    analyzeCoverage: ({commit, state}) => {
         const getRandomInt = (min, max) => {
             min = Math.ceil(min);
             max = Math.floor(max);
@@ -41,7 +40,17 @@ const actions = {
         commit("setIsAnalyzingCoverage", true);
         setTimeout(() => {
             commit("setCoveragePercent", getRandomInt(30, 100));
+            if (state.students.length === 0) {
+                commit("addStudent", "Jamie Hyneman - 7002340");
+                commit("addStudent", "Adam Savage - 7002341");
+            }
+
+            if (state.projectName === "") {
+                commit("setProjectName", "Assignment A2 - Data Structures");
+            }
+
             commit("setIsAnalyzingCoverage", false);
+
         }, getRandomInt(500, 1000));
     },
 };
