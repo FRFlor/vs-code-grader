@@ -1,14 +1,20 @@
 <template>
     <div id="app" v-show="!isHidden">
-        <top-nav @load-file="loadVsGradeFile"
-                 @save-file="saveVsGradeFile"
-                 @load-solutions="loadVsSolutions"
-                 id="app-top-nav"/>
-        <div class="mid-one">
-            <project-feedback id="app-project-feedback"/>
-            <code-viewer id="app-code-viewer"/>
+        <div>
+            <top-nav @load-file="loadVsGradeFile"
+                     @save-file="saveVsGradeFile"
+                     @load-solutions="loadVsSolutions"
+                     id="app-top-nav"/>
         </div>
 
+        <div>
+            <div class="mid-one">
+                <project-feedback id="app-project-feedback" class="flex-1"/>
+                <code-viewer id="app-code-viewer" class="flex-1"/>
+            </div>
+        </div>
+
+        <bottom-bar/>
     </div>
 </template>
 
@@ -117,16 +123,20 @@
         color: $vs_light_gray;
     }
 
-    .mid-one {
+    #app {
         display: flex;
-        justify-content: space-around;
-        max-height: 28rem;
-        padding: 0.625rem 1.25rem;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    .bottom-one {
+    .mid-one {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 0.625rem 1.25rem;
+
+        #app-project-feedback {
+            margin-right: 3rem;
+        }
     }
+
 </style>

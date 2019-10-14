@@ -18,7 +18,7 @@
         </div>
 
         <div>
-            <h2>Quick Comments: </h2>
+            <h2 style="margin-top: 1rem;">Quick Comments: </h2>
 
             <div class="flex justify-between">
                 <div class="flex-1 quick-comments-wrapper">

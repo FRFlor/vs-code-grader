@@ -173,7 +173,9 @@
     .project-feedback {
         display: flex;
         flex-direction: column;
+        justify-content: inherit;
         min-width: 600px;
+        margin-top: 1rem;
     }
 
     .date-picker {
