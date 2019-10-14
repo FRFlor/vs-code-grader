@@ -87,6 +87,14 @@
         background: $vs_black;
     }
 
+    * {
+        font-family: "Source Code Pro", sans-serif;
+    }
+
+    *::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $vs_light_gray;
+    }
+
     #app {
         display: grid;
         // @formatter:off
