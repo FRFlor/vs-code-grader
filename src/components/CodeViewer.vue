@@ -17,15 +17,18 @@
             </pre>
             </div>
         </div>
+        <comment-writer/>
     </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue, Watch} from "vue-property-decorator";
     import SolutionTabs from "@/components/SolutionTabs.vue";
+    import PrepareReport from "@/components/PrepareReport.vue";
+    import CommentWriter from "@/components/CommentWriter.vue";
 
     @Component({
-        components: {SolutionTabs}
+        components: {CommentWriter, PrepareReport, SolutionTabs}
     })
     export default class CodeViewer extends Vue {
 
