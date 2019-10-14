@@ -2,9 +2,11 @@ import {scaffoldStore} from "undo-redo-vuex";
 import {dummyCode} from "./fakeData";
 // @ts-ignore
 import {CheckState} from "@/components/CheckPill.vue";
+import {focusOn} from "@/support";
 
 const state = {
     hasUnsavedChanges: false,
+    isPointingPosition: false,
     date: new Date(),
     loadsState: CheckState.None,
     compilesState: CheckState.None,
@@ -42,6 +44,11 @@ const getters = {
 };
 
 const actions = {
+    pointToElement: ({commit}, id) => {
+        commit("setIsPointingPosition", true);
+        focusOn("write-comment");
+        setTimeout(() => commit("setIsPointingPosition", false), 1000);
+    },
     analyzeCoverage: ({commit, state}) => {
         const getRandomInt = (min, max) => {
             min = Math.ceil(min);
@@ -90,6 +97,9 @@ const actions = {
 const mutations = {
     changeBusyTo: (state, isBusy) => {
         state.isBusy = isBusy;
+    },
+    setIsPointingPosition: (state, isPointingPosition) => {
+        state.isPointingPosition = isPointingPosition;
     },
     setDate: (state, date) => {
         state.hasUnsavedChanges = true;
@@ -169,6 +179,7 @@ const mutations = {
     },
     emptyState: (state) => {
         state.hasUnsavedChanges = false;
+        state.isPointingPosition = false;
         state.loadsState = CheckState.None;
         state.compilesState = CheckState.None;
         state.runsState = CheckState.None;

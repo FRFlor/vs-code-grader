@@ -3,7 +3,11 @@
         <h2>Comment on selected code:</h2>
         <div class="flex">
             <div class="custom-comment-wrapper flex-1">
-                <textarea class="custom-comment"></textarea>
+                <textarea id="write-comment"
+                          @keypress.shift.enter="sendComment"
+                          :class="{'point-position': $store.state.isPointingPosition}"
+                          v-model="comment"
+                          class="custom-comment"></textarea>
             </div>
             <div class="flex column">
                 <v-button class="big-button green" style="margin-bottom: 0.35rem">
@@ -68,6 +72,12 @@
         components: {VueSvg, VButton}
     })
     export default class CommentWriter extends Vue {
+        private comment: string = "";
+
+        private sendComment() {
+            setTimeout(() => this.comment = "", 150);
+
+        }
 
     }
 </script>
@@ -81,6 +91,13 @@
         font-size: 0.8rem;
     }
 
+    textarea {
+        &.point-position {
+            &:focus {
+                outline: 8px solid $vs_blue;
+            }
+        }
+    }
     .custom-comment-wrapper {
         margin-right: 2rem;
 

@@ -72,7 +72,7 @@
             this.startLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 9.5);
         }
 
-        private onMouseUp(e: MouseEvent) {
+        private async onMouseUp(e: MouseEvent) {
             this.endLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 9.5);
             if (this.startLineSelected === -1 || this.endLineSelected === -1) {
                 return;
@@ -80,6 +80,7 @@
             const start: number = Math.min(this.startLineSelected, this.endLineSelected);
             const end: number = Math.max(this.startLineSelected, this.endLineSelected);
             this.$store.commit("highlightLines", {start, end});
+            await this.$store.dispatch("pointToElement", "write-comment");
         }
 
         private onscroll(e: MouseEvent) {

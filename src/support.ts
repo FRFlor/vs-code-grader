@@ -7,3 +7,12 @@ export const loseFocus = () => {
         (document.activeElement as HTMLButtonElement).blur();
     }
 };
+
+export const focusOn = (id: string) => {
+    const element = document.getElementById(id);
+    if (!element) {
+        return;
+    }
+
+    element.focus();
+};
