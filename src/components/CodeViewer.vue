@@ -69,11 +69,11 @@
         }
 
         private onMouseDown(e: MouseEvent) {
-            this.startLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 8.5);
+            this.startLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 9.5);
         }
 
         private onMouseUp(e: MouseEvent) {
-            this.endLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 8.5);
+            this.endLineSelected = Math.floor((this.gutter.scrollTop + e.clientY - this.topYOfCodeBox) / 9.5);
             if (this.startLineSelected === -1 || this.endLineSelected === -1) {
                 return;
             }
