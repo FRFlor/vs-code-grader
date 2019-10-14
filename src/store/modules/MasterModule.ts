@@ -6,7 +6,7 @@ const state = {
     date: new Date(),
     projectComment: "",
     coveragePercent: null,
-    isAnalyzingCoverage: false,
+    commentAnalysisProgress: null,
     isBusy: false,
     students: [],
     projectName: "",
@@ -36,8 +36,28 @@ const actions = {
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min)) + min;
         };
+        let progress = 3;
+        commit("setCommentAnalysisProgress", progress);
+        setTimeout(() => {
+            progress = 10;
+            commit("setCommentAnalysisProgress", progress);
+        }, 500);
 
-        commit("setIsAnalyzingCoverage", true);
+        setTimeout(() => {
+            progress = 35;
+            commit("setCommentAnalysisProgress", progress);
+        }, 1000);
+
+        setTimeout(() => {
+            progress = 75;
+            commit("setCommentAnalysisProgress", progress);
+        }, 1500);
+
+        setTimeout(() => {
+            progress = 95;
+            commit("setCommentAnalysisProgress", progress);
+        }, 1850);
+
         setTimeout(() => {
             commit("setCoveragePercent", getRandomInt(30, 100));
             if (state.students.length === 0) {
@@ -49,9 +69,9 @@ const actions = {
                 commit("setProjectName", "Assignment A2 - Data Structures");
             }
 
-            commit("setIsAnalyzingCoverage", false);
+            commit("setCommentAnalysisProgress", null);
 
-        }, getRandomInt(500, 1000));
+        }, 2000);
     },
 };
 
@@ -67,8 +87,8 @@ const mutations = {
         state.hasUnsavedChanges = true;
         state.coveragePercent = amount;
     },
-    setIsAnalyzingCoverage: (state, isAnalyzing) => {
-        state.isAnalyzingCoverage = isAnalyzing;
+    setCommentAnalysisProgress: (state, progress) => {
+        state.commentAnalysisProgress = progress;
     },
     setProjectComment: (state, comment) => {
         state.hasUnsavedChanges = true;
@@ -118,7 +138,7 @@ const mutations = {
         state.projectName = "";
         state.projectComment = "";
         state.coveragePercent = null;
-        state.isAnalyzingCoverage = false;
+        state.commentAnalysisProgress = null;
         state.students = [];
         state.isBusy = false;
         state.tabs = [

@@ -66,11 +66,13 @@
                     <vue-svg name="play"
                              class="fill-light-blue"/>
                     <span style="margin-left: 0.5rem; width: 100px;"
-                          v-text="$store.state.isAnalyzingCoverage ? 'Analyzing ...' : 'Analyze comments'"/>
+                          v-text="$store.state.commentAnalysisProgress ? 'Analyzing ...' : 'Analyze comments'"/>
                 </div>
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
+        <progress-bar style="margin-left: 1rem;" :progress="$store.state.commentAnalysisProgress || 0"
+                      v-show="$store.state.commentAnalysisProgress > 0"/>
     </nav>
 </template>
 
@@ -78,9 +80,10 @@
     import {Component, Vue} from "vue-property-decorator";
     import VButton from "@/components/VButton.vue";
     import VueSvg from "@/components/VueSvg.vue";
+    import ProgressBar from "@/components/ProgressBar.vue";
 
     @Component({
-    components: {VueSvg, VButton},
+        components: {VueSvg, VButton, ProgressBar},
 })
 export default class TopNav extends Vue {
     private hasEverBeenSavedBefore: boolean = false;
