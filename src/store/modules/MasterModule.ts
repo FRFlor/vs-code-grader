@@ -14,7 +14,7 @@ const state = {
         {
             codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
             highlightedLines: initializeHighlightedLines(),
-            fileName: "helloWorld.cpp",
+            fileName: "helloWorld.sln",
         },
     ],
     currentTabIndex: 0,
@@ -22,9 +22,16 @@ const state = {
 
 const getters = {
     currentCodeSelected: (state) => {
+        if (state.tabs[state.currentTabIndex] === undefined) {
+            return "";
+        }
+
         return state.tabs[state.currentTabIndex].codeSelected;
     },
     currentHighlightedLines: (state) => {
+        if (state.tabs[state.currentTabIndex] === undefined) {
+            return [];
+        }
         return state.tabs[state.currentTabIndex].highlightedLines;
     },
 };
@@ -137,6 +144,9 @@ const mutations = {
     highlightLines: (state, {start, end}) => {
         state.hasUnsavedChanges = true;
         for (let lineIndex = start; lineIndex <= end; lineIndex++) {
+            if (state.tabs[state.currentTabIndex] === undefined) {
+                continue;
+            }
             state.tabs[state.currentTabIndex].highlightedLines[lineIndex] =
                 !state.tabs[state.currentTabIndex].highlightedLines[lineIndex];
         }

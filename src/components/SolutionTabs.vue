@@ -33,7 +33,7 @@
         display: flex;
         margin-right: 3px;
         align-items: center;
-        justify-content: start;
+        justify-content: flex-start;
         padding: 5px;
         background-color: $vs_gray;
         color: $vs_white;
