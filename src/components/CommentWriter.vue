@@ -18,15 +18,43 @@
         </div>
 
         <div>
-
             <h2>Quick Comments: </h2>
-            <div>
-                <button>Academic dishonesty</button>
-                <button>Unused variable</button>
-                <button>Unclear variable name</button>
-                <button>Convoluted Solutions</button>
+
+            <div class="flex justify-between">
+                <div class="flex-1 quick-comments-wrapper">
+                    <div class="flex justify-between" style="margin-bottom: 0.3rem">
+                        <button>
+                            <vue-svg name="play"/>
+                            <span>Academic dishonesty</span>
+                        </button>
+                        <button>
+                            <vue-svg name="play"/>
+                            <span>Unused variable</span>
+                        </button>
+                    </div>
+                    <div class="flex justify-between">
+                        <button>
+                            <vue-svg name="play"/>
+                            <span>Unclear variable name</span>
+                        </button>
+                        <button>
+                            <vue-svg name="play"/>
+                            <span>Convoluted Solutions</span>
+                        </button>
+                    </div>
+                    <div class="w-100 flex">
+                        <input class="flex-1"
+                               type="text"
+                               placeholder="You may insert your own custom quick-comment here...">
+                    </div>
+                </div>
+
+                <v-button class="big-button blue">
+                    <vue-svg name="cross"/>
+                    <span>Search Code Online</span>
+                </v-button>
             </div>
-            <input type="text" placeholder="You may insert your own custom quick-comment here...">
+
         </div>
     </div>
 </template>
@@ -62,6 +90,24 @@
         }
     }
 
+    .quick-comments-wrapper {
+        margin-right: 2rem;
+
+        button {
+            width: 10rem;
+            display: flex;
+            padding: 0.2rem 0.35rem;
+
+            span {
+                margin-left: 0.35rem;
+            }
+        }
+
+        input {
+            margin-top: 1rem;
+        }
+    }
+
     .big-button {
         width: 10rem;
 
@@ -73,6 +119,7 @@
             background-color: $lighter_blue;
             border: 2px solid $vs_dark_blue;
             fill: $vs_dark_blue;
+            max-height: 1.875rem;
         }
 
         &.red {
