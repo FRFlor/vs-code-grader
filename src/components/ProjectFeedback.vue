@@ -242,10 +242,4 @@
     input {
         width: 12.5rem;
     }
-
-    h2 {
-        color: $vs_white;
-        font-weight: normal;
-        font-size: 1rem;
-    }
 </style>

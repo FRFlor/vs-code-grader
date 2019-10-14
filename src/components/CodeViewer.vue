@@ -91,7 +91,7 @@
 
     $gutter-width: 0.75rem;
     $code-box-width: 100%;
-    $code-box-height: 25rem;
+    $code-box-height: 23rem;
 
 
     .code-viewer {

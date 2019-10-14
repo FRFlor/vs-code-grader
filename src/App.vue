@@ -9,6 +9,10 @@
             <code-viewer id="app-code-viewer"/>
         </div>
 
+        <div class="bottom-one">
+
+        </div>
+
     </div>
 </template>
 
@@ -119,6 +123,7 @@
         background-color: $vs_black;
         font-size: 18px;
     }
+
 
     * {
         font-family: "Source Code Pro", sans-serif;
