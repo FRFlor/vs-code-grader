@@ -56,7 +56,16 @@
                 />
             </div>
         </div>
-        <comment-coverage/>
+        <div class="execution-and-comment">
+            <div class="flex column">
+                <check-pill class="pill"></check-pill>
+                <check-pill class="pill"></check-pill>
+                <check-pill class="pill"></check-pill>
+            </div>
+
+            <comment-coverage/>
+        </div>
+
     </div>
 </template>
 
@@ -66,9 +75,10 @@
     import Datepicker from "vuejs-datepicker";
     import VueSvg from "@/components/VueSvg.vue";
     import CommentCoverage from "@/components/CommentCoverage.vue";
+    import CheckPill from "@/components/CheckPill.vue";
 
     @Component({
-        components: {CommentCoverage, VueSvg, VButton, Datepicker},
+        components: {CheckPill, CommentCoverage, VueSvg, VButton, Datepicker},
     })
     export default class ProjectFeedback extends Vue {
         private newStudent: string = "";
@@ -167,6 +177,15 @@
                 }
             }
 
+        }
+    }
+
+    .execution-and-comment {
+        display: flex;
+        justify-content: space-between;
+
+        .pill {
+            margin-bottom: 5px;
         }
     }
 
