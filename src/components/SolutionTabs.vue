@@ -4,7 +4,10 @@
              class="tab"
              @click="$store.commit('switchToTab', index)"
              :class="{'is-current': $store.state.currentTabIndex === index}">
-            {{tab.fileName}}
+            <div class="flex align-center">
+                <div class="circle" :class="{'orange': hasComments[index]}"/>
+                <span>{{tab.fileName}}</span>
+            </div>
         </div>
     </div>
 </template>
@@ -18,6 +21,17 @@
         private get tabs(): ITab[] {
             return this.$store.state.tabs as ITab[];
         }
+
+        private get hasComments(): boolean[] {
+            return this.tabs.map((tab: ITab) => {
+                for (let i = 0; i < tab.highlightedLines.length; i++) {
+                    if (tab.highlightedLines[i]) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+        }
     }
 </script>
 
@@ -29,6 +43,19 @@
         display: flex;
     }
 
+    .circle {
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background-color: $vs_gray;
+
+        &.orange {
+            background-color: orange;
+        }
+
+        margin-right: 0.5rem;
+    }
+
     .tab {
         display: flex;
         margin-right: 0.2rem;
@@ -37,7 +64,8 @@
         padding: 0.3rem;
         background-color: $vs_gray;
         color: $vs_white;
-        width: 5.5rem;
+
+        width: 6rem;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
