@@ -3,6 +3,7 @@ import {scaffoldStore} from "undo-redo-vuex";
 const dummyCode = getDummyCode();
 
 const state = {
+    hasUnsavedChanges: false,
     isBusy: false,
     students: [],
     tabs: [
@@ -30,10 +31,15 @@ const mutations = {
     changeBusyTo: (state, isBusy) => {
         state.isBusy = isBusy;
     },
+    setHasUnsavedChanges: (state, hasUnsavedChanges) => {
+        state.hasUnsavedChanges = hasUnsavedChanges;
+    },
     addStudent: (state, name) => {
+        state.hasUnsavedChanges = true;
         state.students = [...state.students, name];
     },
     editStudent: (state, {id, name}) => {
+        state.hasUnsavedChanges = true;
         state.students[id] = name;
         state.students = [...state.students];
     },
@@ -46,6 +52,7 @@ const mutations = {
         state.tabs = [...state.tabs, newTab];
     },
     highlightLines: (state, {start, end}) => {
+        state.hasUnsavedChanges = true;
         for (let lineIndex = start; lineIndex <= end; lineIndex++) {
             state.tabs[state.currentTabIndex].highlightedLines[lineIndex] =
                 !state.tabs[state.currentTabIndex].highlightedLines[lineIndex];
@@ -54,6 +61,7 @@ const mutations = {
         state.tabs = [...state.tabs];
     },
     emptyState: (state) => {
+        state.hasUnsavedChanges = false;
         state.students = [];
         state.isBusy = false;
         state.tabs = [

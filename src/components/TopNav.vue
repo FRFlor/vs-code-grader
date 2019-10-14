@@ -22,11 +22,13 @@
                       :class="{'disabled': isBusy}">
                 <vue-svg name="open"/>
             </v-button>
-            <v-button v-tooltip="tooltipContent('Save (\'Ctrl + S\')')">
-                <vue-svg name="save" class="fill-light-blue"/>
+            <v-button v-tooltip="tooltipContent('Save (\'Ctrl + S\')')"
+                      :disabled="! hasUnsavedChanges"
+                      @click="save">
+                <vue-svg name="save" class="fill-light-blue" :class="{'disabled': !hasUnsavedChanges}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Save As (\'Ctrl + Shift + S\')')"
-                      @click="$emit('save-file')">
+                      @click="saveAs">
                 <vue-svg name="saveAs" class="fill-light-blue" :class="{'disabled': isBusy}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Print (\'Ctrl + P\')')">
@@ -73,11 +75,12 @@
     import VButton from "@/components/VButton.vue";
     import VueSvg from "@/components/VueSvg.vue";
 
-
     @Component({
         components: {VueSvg, VButton},
     })
     export default class TopNav extends Vue {
+        private hasEverBeenSavedBefore: boolean = false;
+
         private get isBusy(): boolean {
             return this.$store.state.isBusy;
         }
@@ -86,12 +89,29 @@
             return {content, delay: {show: 500, hide: 100}};
         }
 
+        private save() {
+            if (this.hasEverBeenSavedBefore) {
+                return;
+            }
+            this.hasEverBeenSavedBefore = true;
+            this.$emit('save-file');
+        }
+
+        private saveAs() {
+            this.hasEverBeenSavedBefore = true;
+            this.$emit('save-file');
+        }
+
         private get canUndo(): boolean {
             return this.$store.state.canUndo;
         }
 
         private get canRedo(): boolean {
             return this.$store.state.canRedo;
+        }
+
+        private get hasUnsavedChanges(): boolean {
+            return this.$store.state.hasUnsavedChanges;
         }
 
         private async undo(): Promise<void> {
