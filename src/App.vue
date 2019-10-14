@@ -1,7 +1,8 @@
 <template>
     <div id="app" v-show="!isHidden">
-        <top-nav @load-file="openLoadFileDialog"
-                 @save-file="openSaveFileDialog"
+        <top-nav @load-file="loadVsGradeFile"
+                 @save-file="saveVsGradeFile"
+                 @load-solutions="loadVsSolutions"
                  id="app-top-nav"/>
         <div id="app-tabs"></div>
         <project-feedback id="app-project-feedback"/>
@@ -35,17 +36,18 @@
 
             ipcRenderer.on("file-loaded", (event: IpcRendererEvent, fileLoaded: string) => {
                 this.$store.commit("changeBusyTo", false);
-                alert(`Add new tab for: ${fileLoaded}`);
             });
+
             ipcRenderer.on("file-saved", () => {
                 this.$store.commit("changeBusyTo", false);
                 this.$store.commit("setHasUnsavedChanges", false);
             });
 
-            MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());
+            MouseTrap.bind(["command+o", "ctrl+o"], () => this.loadVsGradeFile());
             MouseTrap.bind(["command+z", "ctrl+z"], async () => await this.$store.dispatch("undo"));
             MouseTrap.bind(["command+y", "ctrl+y"], async () => await this.$store.dispatch("redo"));
             MouseTrap.bind(["command+shift+a", "ctrl+shift+a"], async () => await this.$store.dispatch("analyzeCoverage"));
+            MouseTrap.bind(["command+shift+n", "ctrl+shift+n"], () => this.loadVsSolutions());
         }
 
         private checkForBusy(): boolean {
@@ -57,15 +59,23 @@
             return true;
         }
 
-        private openLoadFileDialog() {
+        private loadVsGradeFile() {
             if (!this.checkForBusy()) {
                 return;
             }
 
-            ipcRenderer.send("open-file");
+            ipcRenderer.send("open-vsgrade-file");
         }
 
-        private openSaveFileDialog() {
+        private loadVsSolutions() {
+            if (!this.checkForBusy()) {
+                return;
+            }
+
+            ipcRenderer.send("open-solution-file");
+        }
+
+        private saveVsGradeFile() {
             if (!this.checkForBusy()) {
                 return;
             }

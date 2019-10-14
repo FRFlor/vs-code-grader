@@ -13,7 +13,8 @@
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="file-options flex h-100">
-            <v-button v-tooltip="tooltipContent('Begin new evaluation(s) in new tab(s) (\'Ctrl + Shift + N\')')">
+            <v-button v-tooltip="tooltipContent('Begin new evaluation(s) in new tab(s) (\'Ctrl + Shift + N\')')"
+                      @click="$emit('load-solutions')">
                 <vue-svg name="newFile" class="fill-light-blue"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Load (\'Ctrl + O\')')"
@@ -84,52 +85,52 @@
 
     @Component({
         components: {VueSvg, VButton, ProgressBar},
-})
-export default class TopNav extends Vue {
-    private hasEverBeenSavedBefore: boolean = false;
+    })
+    export default class TopNav extends Vue {
+        private hasEverBeenSavedBefore: boolean = false;
 
-    private get isBusy(): boolean {
-        return this.$store.state.isBusy;
-    }
-
-    private tooltipContent(content: string) {
-        return {content, delay: {show: 500, hide: 100}};
-    }
-
-    private save() {
-        if (this.hasEverBeenSavedBefore) {
-            this.$store.commit("setHasUnsavedChanges", false);
-            return;
+        private get isBusy(): boolean {
+            return this.$store.state.isBusy;
         }
-        this.hasEverBeenSavedBefore = true;
-        this.$emit("save-file");
-    }
 
-    private saveAs() {
-        this.hasEverBeenSavedBefore = true;
-        this.$emit("save-file");
-    }
+        private tooltipContent(content: string) {
+            return {content, delay: {show: 500, hide: 100}};
+        }
 
-    private get canUndo(): boolean {
-        return this.$store.state.canUndo;
-    }
+        private save() {
+            if (this.hasEverBeenSavedBefore) {
+                this.$store.commit("setHasUnsavedChanges", false);
+                return;
+            }
+            this.hasEverBeenSavedBefore = true;
+            this.$emit("save-file");
+        }
 
-    private get canRedo(): boolean {
-        return this.$store.state.canRedo;
-    }
+        private saveAs() {
+            this.hasEverBeenSavedBefore = true;
+            this.$emit("save-file");
+        }
 
-    private get hasUnsavedChanges(): boolean {
-        return this.$store.state.hasUnsavedChanges;
-    }
+        private get canUndo(): boolean {
+            return this.$store.state.canUndo;
+        }
 
-    private async undo(): Promise<void> {
-        await this.$store.dispatch("undo");
-    }
+        private get canRedo(): boolean {
+            return this.$store.state.canRedo;
+        }
 
-    private async redo(): Promise<void> {
-        await this.$store.dispatch("redo");
+        private get hasUnsavedChanges(): boolean {
+            return this.$store.state.hasUnsavedChanges;
+        }
+
+        private async undo(): Promise<void> {
+            await this.$store.dispatch("undo");
+        }
+
+        private async redo(): Promise<void> {
+            await this.$store.dispatch("redo");
+        }
     }
-}
 </script>
 
 <style lang="scss" scoped>

@@ -108,11 +108,24 @@ if (isDevelopment) {
     }
 }
 
-const fileFilter = {name: "VS Grader Document", extensions: ["vsgrade"]};
+const fileFilterVsGrade = {name: "VS Grader Document", extensions: ["vsgrade"]};
+const fileFilterSolution = {name: "Visual Studio Solution", extensions: ["sln"]};
 
-ipcMain.on("open-file", async (event: IpcMainEvent) => {
+ipcMain.on("open-solution-file", async (event: IpcMainEvent) => {
     const filePaths: string[] | undefined = dialog.showOpenDialogSync({
-        filters: [fileFilter],
+        filters: [fileFilterSolution],
+        properties: ["openFile", "openDirectory", "multiSelections"],
+    });
+    if (filePaths === undefined) {
+        event.sender.send("file-loaded", "");
+        return;
+    }
+    event.sender.send("file-loaded", filePaths[0]);
+});
+
+ipcMain.on("open-vsgrade-file", async (event: IpcMainEvent) => {
+    const filePaths: string[] | undefined = dialog.showOpenDialogSync({
+        filters: [fileFilterVsGrade],
         properties: ["openFile"],
     });
     if (filePaths === undefined) {
@@ -123,6 +136,6 @@ ipcMain.on("open-file", async (event: IpcMainEvent) => {
 });
 
 ipcMain.on("save-file", async (event: IpcMainEvent) => {
-    dialog.showSaveDialogSync({filters: [fileFilter]});
+    dialog.showSaveDialogSync({filters: [fileFilterVsGrade]});
     event.sender.send("file-saved");
 });
