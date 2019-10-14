@@ -9,15 +9,11 @@
             <code-viewer id="app-code-viewer"/>
         </div>
 
-        <div class="bottom-one">
-
-        </div>
-
     </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue, Watch} from "vue-property-decorator";
+    import {Component, Vue} from "vue-property-decorator";
     import TopNav from "./components/TopNav.vue";
     import {ipcRenderer, IpcRendererEvent} from "electron";
     import MouseTrap from "mousetrap";
@@ -25,9 +21,11 @@
     import BottomBar from "@/components/BottomBar.vue";
     import ProjectFeedback from "@/components/ProjectFeedback.vue";
     import SolutionTabs from "@/components/SolutionTabs.vue";
+    import PrepareReport from "@/components/PrepareReport.vue";
 
     @Component({
         components: {
+            PrepareReport,
             SolutionTabs,
             ProjectFeedback,
             BottomBar,
@@ -37,20 +35,6 @@
     })
     export default class App extends Vue {
         private isHidden: boolean = true;
-
-        private mounted() {
-            // this.updateHeight();
-        }
-
-        @Watch("innerHeight")
-        private updateHeight() {
-            console.log("updating height");
-            document.documentElement.style.setProperty("--window-height", window.innerHeight.toString());
-        }
-
-        private get innerHeight() {
-            return window.innerHeight;
-        }
 
         private created() {
             ipcRenderer.on("zoom-removed", () => this.isHidden = false);
@@ -124,7 +108,6 @@
         font-size: 18px;
     }
 
-
     * {
         font-family: "Source Code Pro", sans-serif;
         font-size: 0.7rem;
@@ -138,6 +121,12 @@
         display: flex;
         justify-content: space-around;
         max-height: 28rem;
+        padding: 0.625rem 1.25rem;
+    }
+
+    .bottom-one {
+        display: flex;
+        justify-content: space-around;
         padding: 0.625rem 1.25rem;
     }
 </style>

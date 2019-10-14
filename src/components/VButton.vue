@@ -1,6 +1,6 @@
 <template>
     <button @click="onClick" :disabled="disabled">
-        <div class="no-click">
+        <div class="no-click flex">
             <slot>
                 x
             </slot>

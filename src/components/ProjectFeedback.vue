@@ -1,11 +1,10 @@
 <template>
     <div class="project-feedback">
-        <button class="analyze-comments"
-                @click="onAnalyzeClicked">
+        <v-button @click="onAnalyzeClicked" class="analyze-comments">
             <vue-svg name="play"/>
             <span style="margin-left: 0.625rem;"
                   v-text="$store.state.commentAnalysisProgress === null ? 'Analyze Comments' : 'Analyzing ...'"/>
-        </button>
+        </v-button>
         <div class="flex justify-between">
             <div class="project-name-and-day">
                 <div>
@@ -80,7 +79,7 @@
 
             <comment-coverage/>
         </div>
-
+        <prepare-report/>
     </div>
 </template>
 
@@ -92,9 +91,10 @@
     import CommentCoverage from "@/components/CommentCoverage.vue";
     import CheckPill from "@/components/CheckPill.vue";
     import {loseFocus} from "@/support";
+    import PrepareReport from "@/components/PrepareReport.vue";
 
     @Component({
-        components: {CheckPill, CommentCoverage, VueSvg, VButton, Datepicker},
+        components: {PrepareReport, CheckPill, CommentCoverage, VueSvg, VButton, Datepicker},
     })
     export default class ProjectFeedback extends Vue {
         private newStudent: string = "";
@@ -147,13 +147,19 @@
 <style lang="scss" scoped>
     @import "../scss/app";
 
-    button.analyze-comments {
+    h2 {
+        color: $vs_white;
+        font-weight: normal;
+        font-size: 0.8rem;
+    }
+
+    .analyze-comments {
         span {
             font-size: 0.8125rem;
         }
 
         width: 10.125rem;
-        height: 2.2rem;
+        padding: 0.5rem;
         display: flex;
         background-color: $lighter_blue;
         border: 2px solid $vs_dark_blue;
@@ -161,7 +167,6 @@
 
         &:hover, &:focus {
             cursor: pointer;
-            background-color: lighten($lighter_blue, 20%);
         }
     }
 
