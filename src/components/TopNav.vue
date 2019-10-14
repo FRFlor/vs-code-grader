@@ -58,11 +58,15 @@
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="run flex h-100">
-            <v-button v-tooltip="tooltipContent('Perform automatic scan on all tabs that have not yet been scanned')"
-                      class="play-button">
+            <v-button
+                    v-tooltip="tooltipContent('Perform automatic scan of the project comments for coverage (\'Ctrl\' + \'Shift\' + \'A\')')"
+                    @click="$store.dispatch('analyzeCoverage')"
+                    class="play-button">
                 <div class="flex align-center">
-                    <vue-svg name="play" class="fill-light-blue"/>
-                    <span style="margin-left: 0.5rem;">Scan all tabs</span>
+                    <vue-svg name="play"
+                             class="fill-light-blue"/>
+                    <span style="margin-left: 0.5rem; width: 100px;"
+                          v-text="$store.state.isAnalyzingCoverage ? 'Analyzing ...' : 'Analyze comments'"/>
                 </div>
             </v-button>
         </div>
@@ -71,11 +75,11 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import VButton from "@/components/VButton.vue";
-import VueSvg from "@/components/VueSvg.vue";
+    import {Component, Vue} from "vue-property-decorator";
+    import VButton from "@/components/VButton.vue";
+    import VueSvg from "@/components/VueSvg.vue";
 
-@Component({
+    @Component({
     components: {VueSvg, VButton},
 })
 export default class TopNav extends Vue {

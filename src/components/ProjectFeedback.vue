@@ -56,6 +56,7 @@
                 />
             </div>
         </div>
+        <comment-coverage/>
     </div>
 </template>
 
@@ -64,9 +65,10 @@
     import VButton from "@/components/VButton.vue";
     import Datepicker from "vuejs-datepicker";
     import VueSvg from "@/components/VueSvg.vue";
+    import CommentCoverage from "@/components/CommentCoverage.vue";
 
     @Component({
-        components: {VueSvg, VButton, Datepicker},
+        components: {CommentCoverage, VueSvg, VButton, Datepicker},
     })
     export default class ProjectFeedback extends Vue {
         private newStudent: string = "";

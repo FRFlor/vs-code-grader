@@ -45,6 +45,7 @@
             MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());
             MouseTrap.bind(["command+z", "ctrl+z"], async () => await this.$store.dispatch("undo"));
             MouseTrap.bind(["command+y", "ctrl+y"], async () => await this.$store.dispatch("redo"));
+            MouseTrap.bind(["command+shift+a", "ctrl+shift+a"], async () => await this.$store.dispatch("analyzeCoverage"));
         }
 
         private checkForBusy(): boolean {

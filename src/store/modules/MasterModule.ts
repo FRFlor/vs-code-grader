@@ -5,6 +5,8 @@ const state = {
     hasUnsavedChanges: false,
     date: new Date(),
     projectComment: "",
+    coveragePercent: null,
+    isAnalyzingCoverage: false,
     isBusy: false,
     students: [],
     projectName: "",
@@ -27,7 +29,22 @@ const getters = {
     },
 };
 
-const actions = {};
+const actions = {
+    analyzeCoverage: ({commit}) => {
+        console.log("analyzing");
+        const getRandomInt = (min, max) => {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min;
+        };
+
+        commit("setIsAnalyzingCoverage", true);
+        setTimeout(() => {
+            commit("setCoveragePercent", getRandomInt(30, 100));
+            commit("setIsAnalyzingCoverage", false);
+        }, getRandomInt(500, 1000));
+    },
+};
 
 const mutations = {
     changeBusyTo: (state, isBusy) => {
@@ -36,6 +53,13 @@ const mutations = {
     setDate: (state, date) => {
         state.hasUnsavedChanges = true;
         state.date = date;
+    },
+    setCoveragePercent: (state, amount) => {
+        state.hasUnsavedChanges = true;
+        state.coveragePercent = amount;
+    },
+    setIsAnalyzingCoverage: (state, isAnalyzing) => {
+        state.isAnalyzingCoverage = isAnalyzing;
     },
     setProjectComment: (state, comment) => {
         state.hasUnsavedChanges = true;
@@ -84,6 +108,8 @@ const mutations = {
         state.date = new Date();
         state.projectName = "";
         state.projectComment = "";
+        state.coveragePercent = null;
+        state.isAnalyzingCoverage = false;
         state.students = [];
         state.isBusy = false;
         state.tabs = [
