@@ -39,6 +39,7 @@
             });
             ipcRenderer.on("file-saved", () => {
                 this.$store.commit('changeBusyTo', false);
+                this.$store.commit("setHasUnsavedChanges", false);
             });
 
             MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());

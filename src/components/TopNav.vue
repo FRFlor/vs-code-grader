@@ -91,6 +91,7 @@
 
         private save() {
             if (this.hasEverBeenSavedBefore) {
+                this.$store.commit("setHasUnsavedChanges", false);
                 return;
             }
             this.hasEverBeenSavedBefore = true;
