@@ -55,7 +55,6 @@
         border: none;
 
         &:hover {
-            background-color: $vs_gray;
             filter: brightness(120%);
         }
     }

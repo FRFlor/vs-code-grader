@@ -38,6 +38,11 @@ const mutations = {
         state.hasUnsavedChanges = true;
         state.students = [...state.students, name];
     },
+    deleteStudent: (state, id) => {
+        state.hasUnsavedChanges = true;
+        state.students.splice(id, 1);
+        state.students = [...state.students];
+    },
     editStudent: (state, {id, name}) => {
         state.hasUnsavedChanges = true;
         state.students[id] = name;

@@ -143,4 +143,9 @@
         fill: $vs_light_gray !important;
     }
 
+    button {
+        &:hover {
+            background-color: $vs_gray;
+        }
+    }
 </style>
