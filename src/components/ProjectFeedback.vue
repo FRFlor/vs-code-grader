@@ -1,6 +1,6 @@
 <template>
     <div class="project-feedback">
-        <div class="flex justify-space-around">
+        <div class="flex justify-between">
             <div class="project-name-and-day">
                 <div>
                     <h2>Project Name:</h2>
@@ -45,6 +45,13 @@
                            @input="addNewStudent"/>
                 </div>
             </div>
+        </div>
+        <div class="general-feedback">
+            <h2>General Feedback:</h2>
+            <div class="flex">
+                <textarea placeholder="You may insert a project-wise comment for the student in here..."/>
+            </div>
+
         </div>
 
 
@@ -110,6 +117,7 @@
     .project-feedback {
         display: flex;
         flex-direction: column;
+        padding: 0 20px;
     }
 
     .date-picker {
@@ -127,7 +135,6 @@
     }
     .students {
         .input-group {
-            padding-right: 10px;
             max-height: 80px;
             overflow-y: auto;
         }
@@ -150,6 +157,17 @@
         }
     }
 
+    .general-feedback {
+        margin-top: 5px;
+        display: flex;
+        flex-direction: column;
+
+        textarea {
+            flex: 1;
+            height: 50px;
+        }
+    }
+
     input {
         width: 200px;
         padding-right: 35px;
@@ -160,6 +178,4 @@
         font-weight: normal;
         font-size: 1rem;
     }
-
-
 </style>
