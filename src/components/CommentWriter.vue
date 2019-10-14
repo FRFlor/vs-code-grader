@@ -75,8 +75,8 @@
         private comment: string = "";
 
         private sendComment() {
+            this.$store.commit("saveComment", this.comment);
             setTimeout(() => this.comment = "", 150);
-
         }
 
     }

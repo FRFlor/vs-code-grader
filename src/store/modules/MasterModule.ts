@@ -21,6 +21,7 @@ const state = {
         {
             codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
             highlightedLines: initializeHighlightedLines(),
+            comments: [],
             fileName: "helloWorld.sln",
         },
     ],
@@ -140,7 +141,8 @@ const mutations = {
     addNewTab: (state, {codeSelected, fileName}) => {
         const newTab = {
             codeSelected,
-            highlightedLines: initializeHighlightedLines(),
+            highlightedLines: {start: -1, end: -1},
+            comments: [],
             fileName,
         };
         state.tabs = [...state.tabs, newTab];
@@ -151,21 +153,30 @@ const mutations = {
     addFakeTabs: (state) => {
         const newTab = {
             codeSelected: dummyCode,
-            highlightedLines: initializeHighlightedLines(),
+            highlightedLines: {start: -1, end: -1},
+            comments: [],
             fileName: "anotherFile.sln",
         };
         state.tabs = [...state.tabs, newTab];
     },
     highlightLines: (state, {start, end}) => {
-        state.hasUnsavedChanges = true;
-        for (let lineIndex = start; lineIndex <= end; lineIndex++) {
-            if (state.tabs[state.currentTabIndex] === undefined) {
-                continue;
-            }
-            state.tabs[state.currentTabIndex].highlightedLines[lineIndex] =
-                !state.tabs[state.currentTabIndex].highlightedLines[lineIndex];
+        state.tabs[state.currentTabIndex].highlightedLines = {start, end};
+        state.tabs = [...state.tabs];
+    },
+    saveComment: (state, content) => {
+        const {start, end} = state.tabs[state.currentTabIndex].highlightedLines;
+        if (start === -1 || end === -1) {
+            return;
         }
 
+        state.tabs[state.currentTabIndex].comments.push({
+            start,
+            end,
+            content,
+        });
+
+        state.tabs[state.currentTabIndex].highlightedLines = {start: -1, end: -1};
+        
         state.tabs = [...state.tabs];
     },
     setLoadsState: (state, newState) => {
@@ -194,6 +205,7 @@ const mutations = {
             {
                 codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
                 highlightedLines: initializeHighlightedLines(),
+                comments: [],
                 fileName: "helloWorld.cpp",
             },
         ];

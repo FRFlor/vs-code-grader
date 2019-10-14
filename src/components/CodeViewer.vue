@@ -4,9 +4,9 @@
         <div class="code-viewer">
             <div class="gutter" id="gutter">
                 <div class="single-line-gutter"
-                     v-for="(isCommented, index) in currentHighlightedLines"
-                     @click="onHighlightClicked(index)"
-                     :class="{'pink': isCommented}"></div>
+                     v-for="lineNumber in 350"
+                     @click="onHighlightClicked(lineNumber)"
+                     :class="{'pink': isHighlighted(lineNumber)}"></div>
             </div>
             <div v-highlight id="code-box" v-if="shouldExist">
             <pre class="language-javascript"
@@ -50,6 +50,11 @@
 
         private get topYOfCodeBox(): number {
             return this.codeBox.offsetTop;
+        }
+
+        private isHighlighted(lineNumber: string) {
+            const {start, end} = this.currentHighlightedLines;
+            return start <= lineNumber && end >= lineNumber;
         }
 
         private startLineSelected: number = -1;
