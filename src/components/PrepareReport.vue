@@ -3,15 +3,15 @@
         <div class="action-buttons-wrapper">
             <h2>Prepare Report:</h2>
             <v-button class="blue-button" @click="previewDocument">
-                <vue-svg name="play"/>
+                <vue-svg name="preview"/>
                 <span>Preview Document</span>
             </v-button>
             <v-button class="blue-button" @click="exportDocument">
-                <vue-svg name="play"/>
+                <vue-svg name="export"/>
                 <span>Export</span>
             </v-button>
             <v-button class="blue-button" @click="printDocument">
-                <vue-svg name="play"/>
+                <vue-svg name="print"/>
                 <span>Print</span>
             </v-button>
         </div>
@@ -21,7 +21,7 @@
                 <div v-for="i in 6">
                     <v-button class="warning-button" @click="previewDocument">
                         <span>You suck</span>
-                        <vue-svg name="play"/>
+                        <vue-svg name="warning"/>
                     </v-button>
                 </div>
             </div>
@@ -100,6 +100,7 @@
         padding: 0.5rem;
         width: 12rem;
         margin-bottom: 0.3rem;
+        fill: $vs_dark_blue;
 
         span {
             font-size: 0.8125rem;

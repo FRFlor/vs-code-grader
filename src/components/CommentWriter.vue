@@ -7,7 +7,7 @@
             </div>
             <div class="flex column">
                 <v-button class="big-button green" style="margin-bottom: 0.35rem">
-                    <vue-svg name="play"/>
+                    <vue-svg name="save"/>
                     <span>Save comment</span>
                 </v-button>
                 <v-button class="big-button red">
@@ -24,21 +24,21 @@
                 <div class="flex-1 quick-comments-wrapper">
                     <div class="flex justify-between" style="margin-bottom: 0.3rem">
                         <button>
-                            <vue-svg name="play"/>
+                            <vue-svg name="talk"/>
                             <span>Academic dishonesty</span>
                         </button>
                         <button>
-                            <vue-svg name="play"/>
+                            <vue-svg name="talk"/>
                             <span>Unused variable</span>
                         </button>
                     </div>
                     <div class="flex justify-between">
                         <button>
-                            <vue-svg name="play"/>
+                            <vue-svg name="talk"/>
                             <span>Unclear variable name</span>
                         </button>
                         <button>
-                            <vue-svg name="play"/>
+                            <vue-svg name="talk"/>
                             <span>Convoluted Solutions</span>
                         </button>
                     </div>
@@ -50,7 +50,7 @@
                 </div>
 
                 <v-button class="big-button blue">
-                    <vue-svg name="cross"/>
+                    <vue-svg name="globe"/>
                     <span>Search Code Online</span>
                 </v-button>
             </div>
