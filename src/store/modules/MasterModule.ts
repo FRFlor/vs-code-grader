@@ -4,6 +4,7 @@ import {dummyCode} from "./fakeData";
 const state = {
     hasUnsavedChanges: false,
     date: new Date(),
+    projectComment: "",
     isBusy: false,
     students: [],
     projectName: "",
@@ -33,12 +34,18 @@ const mutations = {
         state.isBusy = isBusy;
     },
     setDate: (state, date) => {
+        state.hasUnsavedChanges = true;
         state.date = date;
+    },
+    setProjectComment: (state, comment) => {
+        state.hasUnsavedChanges = true;
+        state.projectComment = comment;
     },
     setHasUnsavedChanges: (state, hasUnsavedChanges) => {
         state.hasUnsavedChanges = hasUnsavedChanges;
     },
     setProjectName: (state, name) => {
+        state.hasUnsavedChanges = true;
         state.projectName = name;
     },
     addStudent: (state, name) => {
@@ -76,6 +83,7 @@ const mutations = {
         state.hasUnsavedChanges = false;
         state.date = new Date();
         state.projectName = "";
+        state.projectComment = "";
         state.students = [];
         state.isBusy = false;
         state.tabs = [

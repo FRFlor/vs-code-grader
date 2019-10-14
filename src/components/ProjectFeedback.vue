@@ -5,6 +5,7 @@
                 <div>
                     <h2>Project Name:</h2>
                     <input type="text"
+                           placeholder="Enter the name of the project here..."
                            :value="$store.state.projectName"
                            @blur="$store.commit('setProjectName', $event.target.value)">
                 </div>
@@ -49,12 +50,13 @@
         <div class="general-feedback">
             <h2>General Feedback:</h2>
             <div class="flex">
-                <textarea placeholder="You may insert a project-wise comment for the student in here..."/>
+                <textarea placeholder="You may insert a project-wise comment for the student in here..."
+                          :value="$store.state.projectComment"
+                          @keyup.enter="$store.commit('setProjectComment', $event.target.value)"
+                          @blur="$store.commit('setProjectComment', $event.target.value)"
+                />
             </div>
-
         </div>
-
-
     </div>
 </template>
 
@@ -126,6 +128,11 @@
         button {
             background-color: $vs_dark_gray;
 
+            &:hover, &:focus {
+                background-color: $vs_blue;
+                cursor: pointer;
+            }
+
             .calendar-icon {
                 transform: scale(2);
                 fill: white;
@@ -133,6 +140,7 @@
         }
 
     }
+
     .students {
         .input-group {
             max-height: 80px;

@@ -54,7 +54,7 @@
         outline: none;
         border: none;
 
-        &:hover {
+        &:hover, &:focus {
             filter: brightness(120%);
         }
     }
