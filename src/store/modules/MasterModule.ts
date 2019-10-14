@@ -123,6 +123,14 @@ const mutations = {
         };
         state.tabs = [...state.tabs, newTab];
     },
+    addFakeTabs: (state) => {
+        const newTab = {
+            codeSelected: dummyCode,
+            highlightedLines: initializeHighlightedLines(),
+            fileName: "anotherFile.sln",
+        };
+        state.tabs = [...state.tabs, newTab];
+    },
     highlightLines: (state, {start, end}) => {
         state.hasUnsavedChanges = true;
         for (let lineIndex = start; lineIndex <= end; lineIndex++) {

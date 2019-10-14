@@ -38,6 +38,12 @@
                 this.$store.commit("changeBusyTo", false);
             });
 
+            ipcRenderer.on("solutions-loaded", (event: IpcRendererEvent, fileLoaded: string) => {
+                console.log("here");
+                this.$store.commit("changeBusyTo", false);
+                this.$store.commit("addFakeTabs");
+            });
+
             ipcRenderer.on("file-saved", () => {
                 this.$store.commit("changeBusyTo", false);
                 this.$store.commit("setHasUnsavedChanges", false);

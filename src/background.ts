@@ -117,10 +117,10 @@ ipcMain.on("open-solution-file", async (event: IpcMainEvent) => {
         properties: ["openFile", "openDirectory", "multiSelections"],
     });
     if (filePaths === undefined) {
-        event.sender.send("file-loaded", "");
+        event.sender.send("solutions-loaded", "");
         return;
     }
-    event.sender.send("file-loaded", filePaths[0]);
+    event.sender.send("solutions-loaded", filePaths[0]);
 });
 
 ipcMain.on("open-vsgrade-file", async (event: IpcMainEvent) => {
