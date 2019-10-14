@@ -1,5 +1,5 @@
 <template>
-    <button @click="onClick">
+    <button @click="onClick" :disabled="disabled">
         <div class="no-click">
             <slot>
                 x
@@ -15,6 +15,7 @@
     @Component
     export default class VButton extends Vue {
         @Prop({default: ""}) private alt!: string;
+        @Prop({default: false}) private disabled!: boolean;
 
         private onClick(payload: MouseEvent): void {
             this.flash(payload);

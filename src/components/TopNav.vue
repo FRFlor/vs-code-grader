@@ -36,7 +36,8 @@
         <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="history flex h-100">
             <v-button v-tooltip="tooltipContent('Undo (\'Ctrl + Z\')')"
-                        @click="undo">
+                      :disabled="!canUndo"
+                      @click="undo">
                 <vue-svg name="back"
                          class="fill-light-blue"
                          :class="{'disabled': !canUndo}"/>
@@ -45,7 +46,8 @@
                 <vue-svg name="caret" class="fill-light-gray"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Redo (\'Ctrl + Y\')')"
-            @click="redo">
+                      :disabled="!canRedo"
+                      @click="redo">
                 <vue-svg name="back" class="fill-light-blue vertical-mirror" :class="{'disabled': !canRedo}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('Redo actions')">
@@ -93,11 +95,11 @@
         }
 
         private async undo(): Promise<void> {
-            await this.$store.dispatch('undo');
+            await this.$store.dispatch("undo");
         }
 
         private async redo(): Promise<void> {
-            await this.$store.dispatch('redo');
+            await this.$store.dispatch("redo");
         }
     }
 </script>

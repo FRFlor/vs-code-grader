@@ -42,6 +42,8 @@
             });
 
             MouseTrap.bind(["command+o", "ctrl+o"], () => this.openLoadFileDialog());
+            MouseTrap.bind(["command+z", "ctrl+z"], async () => await this.$store.dispatch('undo'));
+            MouseTrap.bind(["command+y", "ctrl+y"], async () => await this.$store.dispatch('redo'));
         }
 
         private checkForBusy(): boolean {

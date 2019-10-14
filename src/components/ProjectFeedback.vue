@@ -5,8 +5,8 @@
             <input type="text"
                    v-for="(student, index) in students"
                    :value="student"
-                   @input="event => updateStudent(index, event.target.value)"
                    :id="`student-${index}`"
+                   @blur="event => updateStudent(index, event.target.value)"
                    @keypress.enter="goToNext(index)"/>
             <input placeholder="You may insert another student here..."
                    v-model="newStudent"
