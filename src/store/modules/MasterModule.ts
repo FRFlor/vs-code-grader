@@ -123,6 +123,9 @@ const mutations = {
         };
         state.tabs = [...state.tabs, newTab];
     },
+    switchToTab: (state, index) => {
+        state.currentTabIndex = index;
+    },
     addFakeTabs: (state) => {
         const newTab = {
             codeSelected: dummyCode,

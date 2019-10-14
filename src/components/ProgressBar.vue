@@ -7,12 +7,12 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from "vue-property-decorator";
+import {Component, Prop, Vue} from "vue-property-decorator";
 
-    @Component
-    export default class ProgressBar extends Vue {
-        @Prop({default: 0}) progress!: number;
-    }
+@Component
+export default class ProgressBar extends Vue {
+    @Prop({default: 0}) public progress!: number;
+}
 </script>
 
 <style lang="scss" scoped>

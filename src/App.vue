@@ -4,7 +4,7 @@
                  @save-file="saveVsGradeFile"
                  @load-solutions="loadVsSolutions"
                  id="app-top-nav"/>
-        <div id="app-tabs"></div>
+        <solution-tabs id="app-tabs"/>
         <project-feedback id="app-project-feedback"/>
         <code-viewer id="app-code-viewer"/>
         <bottom-bar id="app-bottom-bar"/>
@@ -19,9 +19,11 @@
     import CodeViewer from "@/components/CodeViewer.vue";
     import BottomBar from "@/components/BottomBar.vue";
     import ProjectFeedback from "@/components/ProjectFeedback.vue";
+    import SolutionTabs from "@/components/SolutionTabs.vue";
 
     @Component({
         components: {
+            SolutionTabs,
             ProjectFeedback,
             BottomBar,
             CodeViewer,
@@ -129,8 +131,6 @@
 
     #app-tabs {
         grid-area: tabs;
-        height: 20px;
-        background-color: red;
     }
 
     #app-project-feedback {

@@ -1,7 +1,8 @@
 <template>
     <div class="comment-coverage" :class="colorClass">
         <h2>Comment Coverage</h2>
-        <div class="value" v-text="$store.state.coveragePercent + '%' || '- -' "/>
+        <div class="value"
+             v-text="$store.state.coveragePercent === null ? ' - - ' : $store.state.coveragePercent + '%'"/>
     </div>
 </template>
 
