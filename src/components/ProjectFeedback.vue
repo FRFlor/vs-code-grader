@@ -1,5 +1,11 @@
 <template>
     <div class="project-feedback">
+        <button class="analyze-comments"
+                @click="onAnalyzeClicked">
+            <vue-svg name="play"/>
+            <span style="margin-left: 10px;"
+                  v-text="$store.state.commentAnalysisProgress === null ? 'Analyze Comments' : 'Analyzing ...'"/>
+        </button>
         <div class="flex justify-between">
             <div class="project-name-and-day">
                 <div>
@@ -85,6 +91,7 @@
     import VueSvg from "@/components/VueSvg.vue";
     import CommentCoverage from "@/components/CommentCoverage.vue";
     import CheckPill from "@/components/CheckPill.vue";
+    import {loseFocus} from "@/support";
 
     @Component({
         components: {CheckPill, CommentCoverage, VueSvg, VButton, Datepicker},
@@ -93,6 +100,10 @@
         private newStudent: string = "";
         private date: Date = new Date();
 
+        private onAnalyzeClicked() {
+            this.$store.dispatch("analyzeCoverage");
+            this.$nextTick(loseFocus);
+        };
 
         private updateStudent(id: number, name: string) {
             console.log("update", name);
@@ -135,6 +146,24 @@
 
 <style lang="scss" scoped>
     @import "../scss/app";
+
+    button.analyze-comments {
+        span {
+            font-size: 13px;
+        }
+
+        width: 162px;
+        height: 35px;
+        display: flex;
+        background-color: $lighter_blue;
+        border: 2px solid $vs_dark_blue;
+        outline: none;
+
+        &:hover, &:focus {
+            cursor: pointer;
+            background-color: lighten($lighter_blue, 20%);
+        }
+    }
 
     .project-feedback {
         display: flex;

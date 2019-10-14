@@ -13,6 +13,7 @@
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
     import VueSvg from "@/components/VueSvg.vue";
+    import {loseFocus} from "@/support";
 
     export enum CheckState {
         None,
@@ -37,17 +38,7 @@
 
         private onClick(event: MouseEvent) {
             this.$emit("input", this.getNextState());
-            setTimeout(this.loseFocus, 150);
-        }
-
-        private loseFocus() {
-            if (!document.activeElement) {
-                return;
-            }
-
-            if (document.activeElement.toString() === "[object HTMLButtonElement]") {
-                (document.activeElement as HTMLButtonElement).blur();
-            }
+            this.$nextTick(loseFocus);
         }
 
         private getNextState() {
