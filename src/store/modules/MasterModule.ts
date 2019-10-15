@@ -151,6 +151,12 @@ const mutations = {
     },
     setCoveragePercent: (state, amount) => {
         state.hasUnsavedChanges = true;
+        if (amount > 100) {
+            amount = 100;
+        }
+        if (amount < 0) {
+            amount = 0;
+        }
         state.coveragePercent = amount;
     },
     setCommentAnalysisProgress: (state, progress) => {

@@ -71,7 +71,7 @@
                 </div>
             </v-button>
         </div>
-        <vue-svg name="divisor" class="fill-light-blue"/>
+        <vue-svg name="divisor"/>
         <progress-bar style="margin-left: 1rem;" :progress="$store.state.commentAnalysisProgress || 0"
                       v-show="$store.state.commentAnalysisProgress > 0"/>
     </nav>

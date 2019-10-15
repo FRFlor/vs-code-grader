@@ -1,8 +1,14 @@
 <template>
     <div class="comment-coverage" :class="colorClass">
         <h2>Comment Coverage</h2>
-        <div class="value"
-             v-text="$store.state.coveragePercent === null ? ' - - ' : $store.state.coveragePercent + '%'"/>
+        <div class="flex align-center">
+            <input class="value"
+                   :class="colorClass"
+                   @input="$store.commit('setCoveragePercent', $event.target.value)"
+                   :value="$store.state.coveragePercent === null ? ' - - ' : $store.state.coveragePercent"/>
+            <span v-if="$store.state.coveragePercent" style="margin-left: -1.15rem;">%</span>
+        </div>
+
     </div>
 </template>
 
@@ -74,6 +80,20 @@
         .value {
             font-size: 1.125rem;
             font-weight: bold;
+            width: 75px;
+            text-align: center;
+
+            &.red {
+                color: #ff374a;
+            }
+
+            &.orange {
+                color: #e48645;
+            }
+
+            &.green {
+                color: #46bd4d;
+            }
         }
     }
 </style>

@@ -46,7 +46,7 @@
             {
                 condition: () => !this.$store.state.coveragePercent,
                 id: "analyze-comments-bottom",
-                description: "Have not run the comment scan"
+                description: "Automatic analysis not yet performed"
             },
             {
                 condition: () => !this.$store.state.projectName,
