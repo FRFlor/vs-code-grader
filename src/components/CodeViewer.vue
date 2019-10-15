@@ -90,9 +90,9 @@
                 return;
             }
             if (this.$store.state.editingComment) {
-                this.$store.commit("saveComment");
+                await this.$store.dispatch("saveComment");
             }
-            setTimeout(() => this.$store.dispatch("editComment", commentIndex), 250);
+            await this.$store.dispatch("editComment", commentIndex);
         }
 
         @Watch("currentCodeSelected")

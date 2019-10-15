@@ -75,7 +75,7 @@
     export default class CommentWriter extends Vue {
 
         private sendComment() {
-            this.$store.commit("saveComment");
+            this.$store.dispatch("saveComment");
         }
 
     }

@@ -57,7 +57,7 @@ const actions = {
         focusOn("write-comment");
         setTimeout(() => commit("setIsPointingPosition", false), 1000);
     },
-    editComment: ({commit, state}, commentIndex) => {
+    editComment: async ({commit, state}, commentIndex) => {
 
         const {start, end, content} = state.tabs[state.currentTabIndex].comments[commentIndex];
         console.log({start, end, content});
@@ -67,7 +67,31 @@ const actions = {
 
         commit("setIsPointingPosition", true);
         focusOn("write-comment");
-        setTimeout(() => commit("setIsPointingPosition", false), 1000);
+        await new Promise((resolve) => setTimeout(() => {
+            commit("setIsPointingPosition", false);
+            return resolve;
+        }, 1000));
+    },
+    saveComment: async ({commit, state}) => {
+        const {start, end} = state.tabs[state.currentTabIndex].highlightedLines;
+        if (start === -1 || end === -1) {
+            return;
+        }
+
+        state.tabs[state.currentTabIndex].comments.push({
+            start,
+            end,
+            content: state.editingComment,
+        });
+
+        state.tabs[state.currentTabIndex].highlightedLines = {start: -1, end: -1};
+
+        await new Promise((resolve) => setTimeout(() => {
+            commit("setEditingComment", "");
+            return resolve;
+        }, 150));
+
+        commit("setTabs", [...state.tabs]);
     },
     analyzeCoverage: ({commit, state}) => {
         const getRandomInt = (min, max) => {
@@ -157,6 +181,9 @@ const mutations = {
         state.students[id] = name;
         state.students = [...state.students];
     },
+    setTabs: (state, tabs) => {
+        state.tabs = tabs;
+    },
     addNewTab: (state, {codeSelected, fileName}) => {
         const newTab = {
             codeSelected,
@@ -184,24 +211,6 @@ const mutations = {
     },
     setEditingComment: (state, comment) => {
         state.editingComment = comment;
-    },
-    saveComment: (state) => {
-        const {start, end} = state.tabs[state.currentTabIndex].highlightedLines;
-        if (start === -1 || end === -1) {
-            return;
-        }
-
-        state.tabs[state.currentTabIndex].comments.push({
-            start,
-            end,
-            content: state.editingComment,
-        });
-
-        state.tabs[state.currentTabIndex].highlightedLines = {start: -1, end: -1};
-
-
-        setTimeout(() => state.editingComment = "", 150);
-        state.tabs = [...state.tabs];
     },
     setLoadsState: (state, newState) => {
         state.loadsState = newState;
