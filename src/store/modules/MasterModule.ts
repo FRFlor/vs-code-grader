@@ -42,6 +42,12 @@ const getters = {
         }
         return state.tabs[state.currentTabIndex].highlightedLines;
     },
+    currentCommentsInView: (state) => {
+        if (state.tabs[state.currentTabIndex] === undefined) {
+            return [];
+        }
+        return state.tabs[state.currentTabIndex].comments;
+    },
 };
 
 const actions = {
@@ -176,7 +182,7 @@ const mutations = {
         });
 
         state.tabs[state.currentTabIndex].highlightedLines = {start: -1, end: -1};
-        
+
         state.tabs = [...state.tabs];
     },
     setLoadsState: (state, newState) => {

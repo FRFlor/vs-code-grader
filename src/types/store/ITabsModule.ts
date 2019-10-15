@@ -12,6 +12,6 @@ export interface ITabsModule {
 
 export interface IComment {
     content: string;
-    startLine: number;
-    endLine: number;
+    start: number;
+    end: number;
 }

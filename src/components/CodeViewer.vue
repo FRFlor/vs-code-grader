@@ -4,9 +4,12 @@
         <div class="code-viewer">
             <div class="gutter" id="gutter">
                 <div class="single-line-gutter"
-                     v-for="lineNumber in 350"
+                     v-for="lineNumber of 350"
                      @click="onHighlightClicked(lineNumber)"
-                     :class="{'pink': isHighlighted(lineNumber)}"></div>
+                     :class="{
+                     'orange': isHighlighted(lineNumber),
+                     'green': isCommented(lineNumber),
+                     }"></div>
             </div>
             <div v-highlight id="code-box" v-if="shouldExist">
             <pre class="language-javascript"
@@ -26,6 +29,7 @@
     import SolutionTabs from "@/components/SolutionTabs.vue";
     import PrepareReport from "@/components/PrepareReport.vue";
     import CommentWriter from "@/components/CommentWriter.vue";
+    import {IComment} from "@/types";
 
     @Component({
         components: {CommentWriter, PrepareReport, SolutionTabs}
@@ -40,6 +44,10 @@
             return this.$store.getters.currentHighlightedLines;
         }
 
+        private get currentCommentsInView(): IComment[] {
+            return this.$store.getters.currentCommentsInView;
+        }
+
         private get codeBox(): HTMLDivElement {
             return document.getElementById("code-box") as HTMLDivElement;
         }
@@ -52,9 +60,18 @@
             return this.codeBox.offsetTop;
         }
 
-        private isHighlighted(lineNumber: string) {
+        private isHighlighted(lineNumber: number) {
             const {start, end} = this.currentHighlightedLines;
             return start <= lineNumber && end >= lineNumber;
+        }
+
+        private isCommented(lineNumber: number) {
+            for (const comment of this.currentCommentsInView) {
+                if (comment.start <= lineNumber && comment.end >= lineNumber) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private startLineSelected: number = -1;
@@ -138,8 +155,12 @@
                 cursor: pointer;
             }
 
-            &.pink {
-                background-color: pink;
+            &.orange {
+                background-color: orange;
+            }
+
+            &.green {
+                background-color: $vs_green;
             }
         }
     }

@@ -91,13 +91,6 @@
         font-size: 0.8rem;
     }
 
-    textarea {
-        &.point-position {
-            &:focus {
-                outline: 8px solid $vs_blue;
-            }
-        }
-    }
     .custom-comment-wrapper {
         margin-right: 2rem;
 

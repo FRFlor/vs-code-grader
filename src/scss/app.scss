@@ -19,6 +19,14 @@ $dark_green: #276F24;
 $light_red: #FFBABA;
 $red: #D44040;
 
+textarea, input, button {
+  &.point-position {
+    &:focus {
+      outline: 8px solid $vs_blue !important;
+    }
+  }
+}
+
 .flex {
   display: flex;
 }
