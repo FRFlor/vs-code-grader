@@ -66,20 +66,30 @@
         }
 
         private isCommented(lineNumber: number) {
-            for (const comment of this.currentCommentsInView) {
+            return this.getCommentIndex(lineNumber) !== null;
+        }
+
+        private getCommentIndex(lineNumber: number): null | number {
+            for (let i = 0; i < this.currentCommentsInView.length; i++) {
+                const comment = this.currentCommentsInView[i];
                 if (comment.start <= lineNumber && comment.end >= lineNumber) {
-                    return true;
+                    return i;
                 }
             }
-            return false;
+
+            return null;
         }
 
         private startLineSelected: number = -1;
         private endLineSelected: number = -1;
         private shouldExist: boolean = true;
 
-        public onHighlightClicked(index: number) {
-            console.log("clicked on " + index);
+        public async onHighlightClicked(lineNumber: number) {
+            const commentIndex: number | null = this.getCommentIndex(lineNumber);
+            if (commentIndex === null) {
+                return;
+            }
+            await this.$store.dispatch("editComment", commentIndex);
         }
 
         @Watch("currentCodeSelected")

@@ -25,6 +25,7 @@ const state = {
             fileName: "helloWorld.sln",
         },
     ],
+    editingComment: "",
     currentTabIndex: 0,
 };
 
@@ -52,6 +53,18 @@ const getters = {
 
 const actions = {
     pointToElement: ({commit}, id) => {
+        commit("setIsPointingPosition", true);
+        focusOn("write-comment");
+        setTimeout(() => commit("setIsPointingPosition", false), 1000);
+    },
+    editComment: ({commit, state}, commentIndex) => {
+
+        const {start, end, content} = state.tabs[state.currentTabIndex].comments[commentIndex];
+        console.log({start, end, content});
+        state.tabs[state.currentTabIndex].comments.splice(commentIndex, 1);
+        commit("highlightLines", {start, end});
+        commit("setEditingComment", content);
+
         commit("setIsPointingPosition", true);
         focusOn("write-comment");
         setTimeout(() => commit("setIsPointingPosition", false), 1000);
@@ -169,7 +182,10 @@ const mutations = {
         state.tabs[state.currentTabIndex].highlightedLines = {start, end};
         state.tabs = [...state.tabs];
     },
-    saveComment: (state, content) => {
+    setEditingComment: (state, comment) => {
+        state.editingComment = comment;
+    },
+    saveComment: (state) => {
         const {start, end} = state.tabs[state.currentTabIndex].highlightedLines;
         if (start === -1 || end === -1) {
             return;
@@ -178,11 +194,13 @@ const mutations = {
         state.tabs[state.currentTabIndex].comments.push({
             start,
             end,
-            content,
+            content: state.editingComment,
         });
 
         state.tabs[state.currentTabIndex].highlightedLines = {start: -1, end: -1};
 
+
+        setTimeout(() => state.editingComment = "", 150);
         state.tabs = [...state.tabs];
     },
     setLoadsState: (state, newState) => {
@@ -215,6 +233,7 @@ const mutations = {
                 fileName: "helloWorld.cpp",
             },
         ];
+        state.editingComment = "";
         state.currentTabIndex = 0;
     },
 };

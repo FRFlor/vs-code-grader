@@ -6,7 +6,8 @@
                 <textarea id="write-comment"
                           @keypress.shift.enter="sendComment"
                           :class="{'point-position': $store.state.isPointingPosition}"
-                          v-model="comment"
+                          @input="$store.commit('setEditingComment', $event.target.value)"
+                          :value="$store.state.editingComment"
                           class="custom-comment"></textarea>
             </div>
             <div class="flex column">
@@ -72,11 +73,9 @@
         components: {VueSvg, VButton}
     })
     export default class CommentWriter extends Vue {
-        private comment: string = "";
 
         private sendComment() {
-            this.$store.commit("saveComment", this.comment);
-            setTimeout(() => this.comment = "", 150);
+            this.$store.commit("saveComment");
         }
 
     }
