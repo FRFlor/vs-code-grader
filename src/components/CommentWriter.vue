@@ -31,21 +31,21 @@
             <div class="flex justify-between">
                 <div class="flex-1 quick-comments-wrapper">
                     <div class="flex justify-between" style="margin-bottom: 0.3rem">
-                        <button>
+                        <button @click="quick('Academic dishonesty')">
                             <vue-svg name="talk"/>
                             <span>Academic dishonesty</span>
                         </button>
-                        <button>
+                        <button @click="quick('Unused variable')">
                             <vue-svg name="talk"/>
                             <span>Unused variable</span>
                         </button>
                     </div>
                     <div class="flex justify-between">
-                        <button>
+                        <button @click="quick('Unclear variable name')">
                             <vue-svg name="talk"/>
                             <span>Unclear variable name</span>
                         </button>
-                        <button>
+                        <button @click="quick('Convoluted Solutions')">
                             <vue-svg name="talk"/>
                             <span>Convoluted Solutions</span>
                         </button>
@@ -76,6 +76,10 @@
         components: {VueSvg, VButton}
     })
     export default class CommentWriter extends Vue {
+        private quick(comment: string) {
+            this.$store.commit("setEditingComment", comment);
+            this.sendComment();
+        }
 
         private sendComment() {
             this.$store.dispatch("saveComment");
