@@ -212,6 +212,12 @@ const mutations = {
     setEditingComment: (state, comment) => {
         state.editingComment = comment;
     },
+    deleteComment: (state) => {
+        state.tabs[state.currentTabIndex].highlightedLines = {start: -1, end: -1};
+
+        state.editingComment = "";
+        state.tabs = [...state.tabs];
+    },
     setLoadsState: (state, newState) => {
         state.loadsState = newState;
     },

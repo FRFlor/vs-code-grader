@@ -11,11 +11,14 @@
                           class="custom-comment"></textarea>
             </div>
             <div class="flex column">
-                <v-button class="big-button green" style="margin-bottom: 0.35rem">
+                <v-button class="big-button green"
+                          @click="sendComment"
+                          style="margin-bottom: 0.35rem">
                     <vue-svg name="save"/>
                     <span>Save comment</span>
                 </v-button>
-                <v-button class="big-button red">
+                <v-button class="big-button red"
+                          @click="deleteComment">
                     <vue-svg name="cross"/>
                     <span>Delete comment</span>
                 </v-button>
@@ -78,6 +81,9 @@
             this.$store.dispatch("saveComment");
         }
 
+        private deleteComment() {
+            this.$store.commit("deleteComment");
+        }
     }
 </script>
 
