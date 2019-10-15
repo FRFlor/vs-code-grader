@@ -16,11 +16,14 @@
             </v-button>
         </div>
         <div class="warning-display">
-            <h2>There are x warnings:</h2>
+            <h2 v-show="hasSomeWarnings">Warnings:</h2>
             <div class="warning-buttons-container">
-                <div v-for="i in 6">
-                    <v-button class="warning-button" @click="previewDocument">
-                        <span>You suck</span>
+                <div v-for="(warning, index) in warnings"
+                     v-show="warning.condition()"
+                     :key="index">
+                    <v-button class="warning-button"
+                              @click="$store.dispatch('pointToElement', warning.id)">
+                        <span v-text="warning.description"/>
                         <vue-svg name="warning"/>
                     </v-button>
                 </div>
@@ -39,6 +42,49 @@
         components: {VueSvg, VButton}
     })
     export default class PrepareReport extends Vue {
+        private warnings = [
+            {
+                condition: () => !this.$store.state.coveragePercent,
+                id: "analyze-comments-bottom",
+                description: "Have not run the comment scan"
+            },
+            {
+                condition: () => !this.$store.state.projectName,
+                id: "project-name",
+                description: "Missing project name"
+            },
+            {
+                condition: () => this.$store.state.students.length === 0,
+                id: "new-student",
+                description: "Missing student information"
+            },
+            {
+                condition: () => this.$store.state.loadsState === 0,
+                id: "loads-check",
+                description: "Missing evaluation for \"Loads\""
+            },
+            {
+                condition: () => this.$store.state.compilesState === 0,
+                id: "compiles-check",
+                description: "Missing evaluation for \"Compiles\""
+            },
+            {
+                condition: () => this.$store.state.runsState === 0,
+                id: "runs-check",
+                description: "Missing evaluation for \"Runs\""
+            },
+        ];
+
+        private get hasSomeWarnings() {
+            for (let i = 0; i < this.warnings.length; i++) {
+                const warning = this.warnings[i];
+                if (warning.condition()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private previewDocument() {
             this.$nextTick(loseFocus);
         }

@@ -1,6 +1,9 @@
 <template>
     <div class="project-feedback">
-        <v-button @click="onAnalyzeClicked" class="analyze-comments">
+        <v-button @click="onAnalyzeClicked"
+                  id="analyze-comments-bottom"
+                  :class="{'point-position': $store.state.isPointingPosition}"
+                  class="analyze-comments">
             <vue-svg name="play"/>
             <span style="margin-left: 0.625rem;"
                   v-text="$store.state.commentAnalysisProgress === null ? 'Analyze Comments' : 'Analyzing ...'"/>
@@ -10,9 +13,11 @@
                 <div>
                     <h2>Project Name:</h2>
                     <input type="text"
+                           id="project-name"
+                           :class="{'point-position': $store.state.isPointingPosition}"
                            placeholder="Enter the name of the project here..."
                            :value="$store.state.projectName"
-                           @blur="$store.commit('setProjectName', $event.target.value)">
+                           @input="$store.commit('setProjectName', $event.target.value)">
                 </div>
                 <div style="margin-top: 0.95rem;">
                     <h2>Date:</h2>
@@ -46,6 +51,7 @@
                     <input placeholder="You may insert another student here..."
                            v-model="newStudent"
                            type="text"
+                           :class="{'point-position': $store.state.isPointingPosition}"
                            id="new-student"
                            @input="addNewStudent"/>
                 </div>
@@ -64,14 +70,17 @@
         <div class="execution-and-comment">
             <div class="flex column">
                 <check-pill class="pill"
+                            id="loads-check"
                             caption="Loads"
                             @input="$store.commit('setLoadsState', $event)"
                             :state="$store.state.loadsState"/>
                 <check-pill class="pill"
+                            id="compiles-check"
                             caption="Compiles"
                             @input="$store.commit('setCompilesState', $event)"
                             :state="$store.state.compilesState"/>
                 <check-pill class="pill"
+                            id="runs-check"
                             caption="Runs"
                             @input="$store.commit('setRunsState', $event)"
                             :state="$store.state.runsState"/>

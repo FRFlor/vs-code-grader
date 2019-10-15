@@ -2,7 +2,7 @@
     <div class="check-pill"
          :class="{'success': isSuccess, 'fail': isFail}"
          @click="onClick">
-        <button>
+        <button :id="id" @click="onClick">
             <vue-svg v-show="isSuccess" name="check"/>
             <vue-svg v-show="isFail" name="cross"/>
         </button>
@@ -26,6 +26,7 @@
     export default class CheckPill extends Vue {
         @Prop({default: () => CheckState.None}) private state!: CheckState;
         @Prop({default: "Caption"}) private caption!: string;
+        @Prop({default: ""}) private id!: string;
 
         private get isSuccess(): boolean {
             return this.state === CheckState.Success;

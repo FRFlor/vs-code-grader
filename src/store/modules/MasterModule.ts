@@ -54,7 +54,7 @@ const getters = {
 const actions = {
     pointToElement: ({commit}, id) => {
         commit("setIsPointingPosition", true);
-        focusOn("write-comment");
+        focusOn(id);
         setTimeout(() => commit("setIsPointingPosition", false), 1000);
     },
     editComment: async ({commit, state}, commentIndex) => {
