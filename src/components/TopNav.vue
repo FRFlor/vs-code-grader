@@ -1,14 +1,22 @@
 <template>
     <nav class="flex align-center">
         <div class="switch-tabs flex h-100">
-            <v-button v-tooltip="tooltipContent('Navigate to previous tab (\'Ctrl + -\')')">
-                <vue-svg name="arrowLeft" class="fill-light-blue"/>
+            <v-button v-tooltip="tooltipContent('Navigate to previous tab (\'Ctrl + -\')')"
+                      :disabled="$store.state.currentTabIndex <= 0"
+                      @click="$store.commit('switchToTab', $store.state.currentTabIndex - 1)">
+                <vue-svg name="arrowLeft" class="fill-light-blue"
+                         :class="{'disabled': $store.state.currentTabIndex <= 0}"/>
             </v-button>
             <v-button v-tooltip="tooltipContent('List tabs')">
-                <vue-svg name="caret" class="fill-light-gray"/>
+                <vue-svg name="caret"
+                         class="fill-light-gray"/>
             </v-button>
-            <v-button v-tooltip="tooltipContent('Navigate to next tab (\'Ctrl + Shift + -\')')">
-                <vue-svg name="arrowLeft" class="fill-light-blue vertical-mirror"/>
+            <v-button v-tooltip="tooltipContent('Navigate to next tab (\'Ctrl + Shift + -\')')"
+                      :disabled="$store.state.currentTabIndex >= $store.state.tabs.length - 1"
+                      @click="$store.commit('switchToTab', $store.state.currentTabIndex + 1)">
+                <vue-svg name="arrowLeft"
+                         class="fill-light-blue vertical-mirror"
+                         :class="{'disabled': $store.state.currentTabIndex >= $store.state.tabs.length - 1}"/>
             </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
