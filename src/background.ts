@@ -1,6 +1,6 @@
 "use strict";
 import "./background/menu";
-import {app, BrowserWindow, dialog, ipcMain, IpcMainEvent, protocol} from "electron";
+import {app, BrowserWindow, dialog, ipcMain, IpcMainEvent, protocol, shell} from "electron";
 import {createProtocol, installVueDevtools} from "vue-cli-plugin-electron-builder/lib";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -138,4 +138,8 @@ ipcMain.on("open-vsgrade-file", async (event: IpcMainEvent) => {
 ipcMain.on("save-file", async (event: IpcMainEvent) => {
     dialog.showSaveDialogSync({filters: [fileFilterVsGrade]});
     event.sender.send("file-saved");
+});
+
+ipcMain.on("open-google", () => {
+    shell.openExternal("https://www.google.com?q=the+code+that+was+selected+here");
 });

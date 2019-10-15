@@ -41,6 +41,9 @@
             <v-button v-tooltip="tooltipContent('Print (\'Ctrl + P\')')">
                 <vue-svg name="print" class="fill-light-blue"/>
             </v-button>
+            <v-button v-tooltip="tooltipContent('Configurations')">
+                <vue-svg name="cog" class="fill-light-blue"/>
+            </v-button>
         </div>
         <vue-svg name="divisor" class="fill-light-blue"/>
         <div class="history flex h-100">

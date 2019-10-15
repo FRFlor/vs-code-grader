@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <v-button class="big-button blue">
+                <v-button class="big-button blue" @click="openGoogle">
                     <vue-svg name="globe"/>
                     <span>Search Code Online</span>
                 </v-button>
@@ -71,6 +71,7 @@
     import {Component, Vue} from "vue-property-decorator";
     import VButton from "@/components/VButton.vue";
     import VueSvg from "@/components/VueSvg.vue";
+    import {ipcRenderer} from "electron";
 
     @Component({
         components: {VueSvg, VButton}
@@ -87,6 +88,10 @@
 
         private deleteComment() {
             this.$store.commit("deleteComment");
+        }
+
+        private openGoogle() {
+            ipcRenderer.send("open-google");
         }
     }
 </script>
