@@ -3,6 +3,7 @@
         <div>
             <top-nav @load-file="loadVsGradeFile"
                      @save-file="saveVsGradeFile"
+                     @go-to-tab="goToTab"
                      @load-solutions="loadVsSolutions"
                      id="app-top-nav"/>
         </div>
@@ -60,6 +61,8 @@
                 this.$store.commit("setHasUnsavedChanges", false);
             });
 
+            MouseTrap.bind(["command+o", "ctrl+-"], () => this.goToTab(-1));
+            MouseTrap.bind(["command+o", "ctrl+shift+-"], () => this.goToTab(+1));
             MouseTrap.bind(["command+o", "ctrl+o"], () => this.loadVsGradeFile());
             MouseTrap.bind(["command+z", "ctrl+z"], async () => await this.$store.dispatch("undo"));
             MouseTrap.bind(["command+y", "ctrl+y"], async () => await this.$store.dispatch("redo"));
@@ -67,6 +70,13 @@
             MouseTrap.bind(["command+shift+n", "ctrl+shift+n"], () => this.loadVsSolutions());
         }
 
+        private goToTab(delta: number) {
+            const destination = this.$store.state.currentTabIndex + delta;
+            if (destination < 0 || destination > this.$store.state.tabs.length - 1) {
+                return;
+            }
+            this.$store.commit("switchToTab", destination);
+        }
         private checkForBusy(): boolean {
             if (this.$store.state.isBusy) {
                 return false;
