@@ -1,6 +1,6 @@
 export interface ITab {
     codeSelected: string;
-    highlightedLines: Array<{ start: number, end: number }>;
+    highlightedLines: { start: number, end: number };
     comments: IComment[];
     fileName: string;
 }

@@ -5,7 +5,11 @@
              @click="$store.commit('switchToTab', index)"
              :class="{'is-current': $store.state.currentTabIndex === index}">
             <div class="flex align-center">
-                <div class="circle" :class="{'orange': hasComments[index]}"/>
+                <div class="circle"
+                     :class="{
+                     'orange': tab.highlightedLines.start >= 0,
+                     'green': tab.comments.length > 0,
+                     }"/>
                 <span>{{tab.fileName}}</span>
             </div>
         </div>
@@ -20,17 +24,6 @@
     export default class SolutionTabs extends Vue {
         private get tabs(): ITab[] {
             return this.$store.state.tabs as ITab[];
-        }
-
-        private get hasComments(): boolean[] {
-            return this.tabs.map((tab: ITab) => {
-                for (let i = 0; i < tab.highlightedLines.length; i++) {
-                    if (tab.highlightedLines[i]) {
-                        return true;
-                    }
-                }
-                return false;
-            });
         }
     }
 </script>
@@ -52,6 +45,17 @@
         &.orange {
             background-color: orange;
         }
+
+        &.green {
+            background-color: $vs_green;
+        }
+
+        &.orange {
+            &.green {
+                background: linear-gradient(90deg, orange 0%, orange 50%, green 50%, green 100%);
+            }
+        }
+
 
         margin-right: 0.5rem;
     }

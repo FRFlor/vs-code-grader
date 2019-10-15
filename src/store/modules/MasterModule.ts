@@ -20,7 +20,7 @@ const state = {
     tabs: [
         {
             codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
-            highlightedLines: initializeHighlightedLines(),
+            highlightedLines: {start: -1, end: -1},
             comments: [],
             fileName: "helloWorld.sln",
         },
@@ -249,7 +249,7 @@ const mutations = {
         state.tabs = [
             {
                 codeSelected: `${dummyCode}\n\n${dummyCode}\n\n${dummyCode}`,
-                highlightedLines: initializeHighlightedLines(),
+                highlightedLines: {start: -1, end: -1},
                 comments: [],
                 fileName: "helloWorld.cpp",
             },
@@ -267,7 +267,3 @@ const masterModule = scaffoldStore({
 });
 
 export default masterModule;
-
-function initializeHighlightedLines() {
-    return Array.from({length: 300}, () => false);
-}
